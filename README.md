@@ -1,0 +1,2 @@
+# Frontend
+DuuniApp Frontend repository
