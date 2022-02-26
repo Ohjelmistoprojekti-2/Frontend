@@ -1,6 +1,6 @@
 // TÄNNE RAKENNETAAN ALUSTAVA NÄKYMÄ, JOSSA TEHDÄÄN VALINNAT
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet } from 'react-native';
 import Radiobutton from './Radiobutton';
 
 export default function Home() {
@@ -12,14 +12,19 @@ export default function Home() {
         { value: 'Tietoevry' },
         { value: 'Reaktor' },
     ];
+
     return (
-        <View style={styles.container}>
+
+        <View>
             <Text style={styles.paragraph}>Choose your favorite company: </Text>
             <Radiobutton data={data} onSelect={(value) => setOption(value)} />
             {/* //TÄTÄ SEURAAVAA EI EHKÄ TARVIS TÄSSÄ, KERTOO PAINALLUKSEN TULOKSEN */}
             <Text> Your option: {option}</Text>
+
             {/* // TÄHÄN TULIS SUBMIT JOKA NAVIGOISI RESULTS KOMPONENTTIIN JOSSA NÄKYISI HAKUTULOKSET */}
+
         </View>
+
     );
 }
 const styles = StyleSheet.create({
