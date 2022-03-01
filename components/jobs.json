@@ -1,32 +1,58 @@
 [
     {
         "id": 1,
+        "header": "Senior Service Designer",
         "company": "Siili Solutions",
-        "content": [
-            {
-                "header": "Junior developer",
-                "url": "www.siili.fi"
-            }
-        ]
+        "ala": "Tech",
+        "url": "https://www.siili.com/join-us/senior-service-designer#applicationform"
     },
     {
         "id": 2,
-        "company": "Tietoevry",
-        "content": [
-            {
-                "header": "Senior developer",
-                "url": "www.tieto.fi"
-            }
-        ]
+        "header": "Azure Cloud Architect",
+        "company": "Siili Solutions",
+        "ala": "Tech",
+        "url": "https://siili.com/join-us/azure-cloud-architect#applicationform"
     },
     {
         "id": 3,
+        "header": "Automation Ops Expert",
+        "company": "Siili Solutions",
+        "ala": "Tech",
+        "url": "https://siili.com/join-us/automation-ops-expert#applicationform"
+    },
+    {
+        "id": 4,
+        "header": "Cloud Architect",
+        "company": "Siili Solutions",
+        "ala": "Tech",
+        "url": "https://siili.com/join-us/cloud-architect#applicationform"
+    },
+    {
+        "id": 5,
+        "header": "Full-stack Developer",
         "company": "Reaktor",
-        "content": [
-            {
-                "header": "Frontend trainee",
-                "url": "www.reaktor.fi"
-            }
-        ]
+        "ala": "Tech",
+        "url": "https://www.reaktor.com/careers/full-stack-developer-5897769002/"
+    },
+    {
+        "id": 6,
+        "header": "(Cloud) DevOps engineer",
+        "company": "Reaktor",
+        "ala": "Tech",
+        "url": "https://www.reaktor.com/careers/cloud-devops-engineer-5894861002/"
+    },
+    {
+        "id": 7,
+        "header": "Data Engineer",
+        "company": "Reaktor",
+        "ala": "Tech",
+        "url": "https://www.reaktor.com/careers/data-engineer-5894838002/"
+    },
+    {
+        "id": 8,
+        "header": "Lead Digital Product Designer",
+        "company": "Reaktor",
+        "ala": "Tech",
+        "url": "https://www.reaktor.com/careers/lead-digital-product-designer-5894835002/"
     }
 ]
