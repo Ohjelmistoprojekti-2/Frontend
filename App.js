@@ -72,7 +72,7 @@ export default function App() {
             },
             tabBarLabelStyle: {
               fontSize: 16,
-              margin: 0,
+              marginLeft: 15,
             },
             tabBarItemStyle: {
               display: "flex",
