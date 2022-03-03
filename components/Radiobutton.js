@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 import { Checkbox } from "react-native-paper";
 
 // PROPSINA HOME KOMPONENTISTA DATA ARRAYN VAIHTOEHDOT JA ONSELECT JOS KÄYTTÄJÄ TEKEE VALINNAN
-export default function Radiobutton({ data }) {
+export default function Radiobutton({ data, styles }) {
   const [userOption, setUserOption] = useState([]);
   // luodaan data-arrayn verran false-stateja:
   const [checked, setChecked] = useState(new Array(data.length).fill(false));
@@ -29,15 +29,21 @@ export default function Radiobutton({ data }) {
     }
   };
   return (
-    <View>
-      {/* MAPATAAN VALINTAVAIHTOEHDOT LÄPI */}
+    <View style={styles.horizontal}>
       {data.map((item, index) => {
         return (
           <View
             key={index}
-            style={{ flexDirection: "row", alignItems: "center" }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              flex: 1,
+              minWidth: "30%",
+              flexGrow: 0,
+              marginRight: "2%",
+            }}
           >
-            <Checkbox
+            <Checkbox.Android
               value={item.value}
               // EHTO, JOSSA TARKASTETAAN, ONKO KÄYTTÄJÄN VALINTA SAMA KUIN JOKU BUTTONIN ARVOISTA
               status={checked[index] === true ? "checked" : "unchecked"}
