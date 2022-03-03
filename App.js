@@ -32,13 +32,11 @@ export default function App() {
         style={{
           flex: 1,
           flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
           color: colorscheme.lighttext,
         }}
       >
         <Image
-          style={{ height: 50 + "%", width: 40 }}
+          style={{ height: 30, width: 40 }}
           source={require("./assets/duuniapp.svg")}
         />
         <Text
@@ -69,17 +67,22 @@ export default function App() {
             tabBarInactiveTintColor: colorscheme.dullnavtext,
             tabBarStyle: {
               backgroundColor: colorscheme.primary,
+              margin: 0,
+              padding: 0,
             },
             tabBarLabelStyle: {
-              fontSize: 18,
-              marginTop: 0,
+              fontSize: 16,
+              margin: 0,
             },
             tabBarItemStyle: {
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
+              padding: 0,
+              margin: 0,
             },
+            tabBarLabelPosition: "beside-icon",
           })}
         >
           <Tab.Screen
@@ -90,7 +93,6 @@ export default function App() {
               headerTitle: (props) => <LogoTitle {...props} />,
               headerStyle: {
                 backgroundColor: colorscheme.primary,
-                alignItems: "center",
               },
               headerTitleStyle: { fontSize: 25, color: colorscheme.lighttext },
             }}
