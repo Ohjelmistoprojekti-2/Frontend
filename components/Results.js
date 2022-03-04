@@ -34,8 +34,8 @@ export default function Results({ route, navigation }) {
   // header propsi
   const jobListHeader = () => {
     return (
-      <Text style={{ fontSize: 30, textAlign: "center", fontWeight: 'bold', textDecorationLine: 'underline' }}>
-        Your results:
+      <Text style={{ marginBottom: 20, fontSize: 30, textAlign: "center", fontWeight: 'bold', textDecorationLine: 'underline' }}>
+        Your results
       </Text>
     );
   };
@@ -51,9 +51,9 @@ export default function Results({ route, navigation }) {
         renderItem={({ item }) =>
           <View style={{ margin: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.header}</Text>
-            <Text style={{ fontSize: 20 }}>{item.company}</Text>
+            <Text style={{ marginBottom: 10, fontSize: 20 }}>{item.company}</Text>
             <Pressable styles={styles.button} onPress={() => Linking.openURL(`${item.url}`)} >
-              <Text style={{ fontSize: 16, lineHeight: 21, color: 'black' }}>See more</Text>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', lineHeight: 21, color: '#6A5ACD', textDecorationLine: 'underline' }}>See more</Text>
             </Pressable>
           </View>
         }
