@@ -128,14 +128,17 @@ export default function Home({ route, navigation, theme }) {
       <View style={styles.horizontal}>
         {yestags.map((tag, index) => {
           return (
-            <TouchableOpacity style={styles.tagbutton} key={index}>
+            <TouchableOpacity
+              style={styles.tagbutton}
+              key={index}
+              onPress={poistatagi}
+            >
               <Text style={styles.center}>{tag}</Text>
               <Ionicons
                 name="close-outline"
                 size={20}
                 style={styles.icon}
                 color={theme.colors.lighttext}
-                onPress={poistatagi}
               />
             </TouchableOpacity>
           );
@@ -152,24 +155,22 @@ export default function Home({ route, navigation, theme }) {
           returnKeyType="done"
           onSubmitEditing={lisaaeitagi}
         ></TextInput>
-        <Ionicons
-          name="add-circle"
-          size={40}
-          color={theme.colors.card}
-          onPress={lisaaeitagi}
-        />
+        <Ionicons name="add-circle" size={40} color={theme.colors.card} />
       </View>
       <View style={styles.horizontal}>
         {notags.map((tag, index) => {
           return (
-            <TouchableOpacity style={styles.tagbutton} key={index}>
+            <TouchableOpacity
+              style={styles.tagbutton}
+              key={index}
+              onPress={poistaeitagi}
+            >
               <Text style={styles.center}>{tag}</Text>
               <Ionicons
                 name="close-outline"
                 size={20}
                 style={styles.icon}
                 color={theme.colors.lighttext}
-                onPress={poistaeitagi}
               />
             </TouchableOpacity>
           );
