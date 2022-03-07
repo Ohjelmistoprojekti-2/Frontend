@@ -6,7 +6,7 @@ const browngreen = {
     primary: "#2c6e49",
     secondary: "#ffc9b9",
     background: "#f2f2f2",
-    card: "#d68c45",
+    card: "#ff8c42",
     accent: "#d68c45",
     text: "#000",
     lighttext: "#fefee3",

@@ -1,12 +1,20 @@
 //TÄNNE LISTATAAN HAKUTULOKSET TYÖPAIKOISTA
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
-import { Text, View, StyleSheet, FlatList, Linking, Button, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Linking,
+  Button,
+  Pressable,
+} from "react-native";
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 import Data from "./jobs.json";
 
-export default function Results({ route, navigation }) {
-  const jobs = Data
+export default function Results({ route, navigation, props }) {
+  const jobs = Data;
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
@@ -16,7 +24,7 @@ export default function Results({ route, navigation }) {
           height: 1,
           width: "80%",
           backgroundColor: "#CED0CE",
-          marginLeft: "10%"
+          marginLeft: "10%",
         }}
       />
     );
@@ -34,7 +42,15 @@ export default function Results({ route, navigation }) {
   // header propsi
   const jobListHeader = () => {
     return (
-      <Text style={{ marginBottom: 20, fontSize: 30, textAlign: "center", fontWeight: 'bold', textDecorationLine: 'underline' }}>
+      <Text
+        style={{
+          marginBottom: 20,
+          fontSize: 30,
+          textAlign: "center",
+          fontWeight: "bold",
+          textDecorationLine: "underline",
+        }}
+      >
         Your results
       </Text>
     );
@@ -47,16 +63,33 @@ export default function Results({ route, navigation }) {
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) =>
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <View style={{ margin: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.header}</Text>
-            <Text style={{ marginBottom: 10, fontSize: 20 }}>{item.company}</Text>
-            <Pressable styles={styles.button} onPress={() => Linking.openURL(`${item.url}`)} >
-              <Text style={{ fontSize: 16, fontWeight: 'bold', lineHeight: 21, color: '#6A5ACD', textDecorationLine: 'underline' }}>See more</Text>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {item.header}
+            </Text>
+            <Text style={{ marginBottom: 10, fontSize: 20 }}>
+              {item.company}
+            </Text>
+            <Pressable
+              styles={styles.button}
+              onPress={() => Linking.openURL(`${item.url}`)}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  lineHeight: 21,
+                  color: "#6A5ACD",
+                  textDecorationLine: "underline",
+                }}
+              >
+                See more
+              </Text>
             </Pressable>
           </View>
-        }
+        )}
       />
     </View>
   );
@@ -76,13 +109,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
   },
 });
-

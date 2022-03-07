@@ -87,8 +87,7 @@ export default function App() {
         >
           <Tab.Screen
             name="Home"
-            component={Home}
-            route={{ theme: theme }}
+            children={() => <Home theme={theme} />}
             options={{
               title: "Options",
               headerTitle: (props) => <LogoTitle {...props} />,
@@ -100,8 +99,7 @@ export default function App() {
           />
           <Tab.Screen
             name="Results"
-            route={{ theme: theme }}
-            component={Results}
+            children={() => <Results theme={theme} />}
             options={{
               title: "Job results",
               headerTitle: (props) => <LogoTitle {...props} />,
