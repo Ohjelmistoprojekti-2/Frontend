@@ -63,8 +63,11 @@ export default function Home({ route, navigation, theme }) {
 
   const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
   const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
+  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+
   const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
   const [notags, setNotags] = useState([]); // kaikki ei-tagit
+  const [locations, setLocations] = useState([]); // halutut sijainnit
 
   function Tags(props) {
     return props.data.map((tag, index) => {
@@ -74,7 +77,7 @@ export default function Home({ route, navigation, theme }) {
             style={styles.tagbutton}
             key={index}
             onPress={() => {
-              props.fun(index);
+              poistatagi(index, props.setLitania, props.data);
             }}
           >
             <Text style={styles.center}>{tag}</Text>
@@ -90,35 +93,17 @@ export default function Home({ route, navigation, theme }) {
     });
   }
 
-  useEffect(() => {
-    //alert("muuttui!!!");
-  }, [yestags]);
-
-  const lisaatagi = () => {
-    if (yesword == "") {
+  const lisaatagi = (muistipaikka, setMuistipaikka, litania, setLitania) => {
+    if (muistipaikka == "") {
       return;
     }
-    setYestags((yestags) => [...yestags, yesword]);
-    setYesword("");
+    setLitania((litania) => [...litania, muistipaikka]);
+    setMuistipaikka("");
   };
 
-  const lisaaeitagi = () => {
-    if (noword == "") {
-      return;
-    }
-    setNotags((notags) => [...notags, noword]);
-    setNoword("");
-  };
-
-  const poistatagi = (index) => {
+  const poistatagi = (index, setLitania, litania) => {
     if (index !== -1) {
-      setYestags((yestags) => yestags.filter((_, i) => i !== index));
-    }
-  };
-
-  const poistaeitagi = (index) => {
-    if (index !== -1) {
-      setNotags((notags) => notags.filter((_, i) => i !== index));
+      setLitania((litania) => litania.filter((_, i) => i !== index));
     }
   };
 
@@ -126,9 +111,6 @@ export default function Home({ route, navigation, theme }) {
     <View style={styles.form}>
       <Text style={styles.paragraph}>Show jobs from selected companies:</Text>
       <Radiobutton data={data} styles={styles} />
-      {/* //TÄTÄ SEURAAVAA EI EHKÄ TARVIS TÄSSÄ, KERTOO PAINALLUKSEN TULOKSEN */}
-
-      {/* // TÄHÄN TULIS SUBMIT JOKA NAVIGOISI RESULTS KOMPONENTTIIN JOSSA NÄKYISI HAKUTULOKSET */}
       <Text style={styles.paragraph}>
         Show only jobs that contain keywords:
       </Text>
@@ -137,20 +119,22 @@ export default function Home({ route, navigation, theme }) {
           mode="outlined"
           onChangeText={(text) => setYesword(text)}
           value={yesword}
-          label="Keyword..."
+          label="Including keyword..."
           style={styles.fill}
           returnKeyType="done"
-          onSubmitEditing={lisaatagi}
+          onSubmitEditing={() =>
+            lisaatagi(yesword, setYesword, yestags, setYestags)
+          }
         ></TextInput>
         <Ionicons
           name="add-circle"
           size={40}
           color={theme.colors.card}
-          onPress={lisaatagi}
+          onPress={() => lisaatagi(yesword, setYesword, yestags, setYestags)}
         />
       </View>
       <View style={styles.horizontal}>
-        <Tags data={yestags} fun={poistatagi} />
+        <Tags data={yestags} setLitania={setYestags} />
       </View>
       <Text style={styles.paragraph}>Exclude jobs that contain keywords:</Text>
       <View style={styles.horizontalform}>
@@ -158,20 +142,48 @@ export default function Home({ route, navigation, theme }) {
           mode="outlined"
           onChangeText={(text) => setNoword(text)}
           value={noword}
-          label="Keyword..."
+          label="Excluding keyword..."
           style={styles.fill}
           returnKeyType="done"
-          onSubmitEditing={lisaaeitagi}
+          onSubmitEditing={() =>
+            lisaatagi(noword, setNoword, notags, setNotags)
+          }
         ></TextInput>
         <Ionicons
           name="add-circle"
           size={40}
           color={theme.colors.card}
-          onPress={lisaaeitagi}
+          onPress={() => lisaatagi(noword, setNoword, notags, setNotags)}
         />
       </View>
       <View style={styles.horizontal}>
-        <Tags data={notags} fun={poistaeitagi} />
+        <Tags data={notags} setLitania={setNotags} />
+      </View>
+
+      <Text style={styles.paragraph}>Show only jobs from location(s):</Text>
+      <View style={styles.horizontalform}>
+        <TextInput
+          mode="outlined"
+          onChangeText={(text) => setLocation(text)}
+          value={location}
+          label="Location..."
+          style={styles.fill}
+          returnKeyType="done"
+          onSubmitEditing={() =>
+            lisaatagi(location, setLocation, locations, setLocations)
+          }
+        ></TextInput>
+        <Ionicons
+          name="add-circle"
+          size={40}
+          color={theme.colors.card}
+          onPress={() =>
+            lisaatagi(location, setLocation, locations, setLocations)
+          }
+        />
+      </View>
+      <View style={styles.horizontal}>
+        <Tags data={locations} setLitania={setLocations} />
       </View>
     </View>
   );
