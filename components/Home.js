@@ -77,7 +77,7 @@ export default function Home({ route, navigation, theme }) {
             style={styles.tagbutton}
             key={index}
             onPress={() => {
-              poistatagi(index, props.setLitania, props.data);
+              poistatagi(index, props.setLitania);
             }}
           >
             <Text style={styles.center}>{tag}</Text>
@@ -93,7 +93,7 @@ export default function Home({ route, navigation, theme }) {
     });
   }
 
-  const lisaatagi = (muistipaikka, setMuistipaikka, litania, setLitania) => {
+  const lisaatagi = (muistipaikka, setMuistipaikka, setLitania) => {
     if (muistipaikka == "") {
       return;
     }
@@ -101,7 +101,7 @@ export default function Home({ route, navigation, theme }) {
     setMuistipaikka("");
   };
 
-  const poistatagi = (index, setLitania, litania) => {
+  const poistatagi = (index, setLitania) => {
     if (index !== -1) {
       setLitania((litania) => litania.filter((_, i) => i !== index));
     }
@@ -122,15 +122,13 @@ export default function Home({ route, navigation, theme }) {
           label="Including keyword..."
           style={styles.fill}
           returnKeyType="done"
-          onSubmitEditing={() =>
-            lisaatagi(yesword, setYesword, yestags, setYestags)
-          }
+          onSubmitEditing={() => lisaatagi(yesword, setYesword, setYestags)}
         ></TextInput>
         <Ionicons
           name="add-circle"
           size={40}
           color={theme.colors.card}
-          onPress={() => lisaatagi(yesword, setYesword, yestags, setYestags)}
+          onPress={() => lisaatagi(yesword, setYesword, setYestags)}
         />
       </View>
       <View style={styles.horizontal}>
@@ -145,15 +143,13 @@ export default function Home({ route, navigation, theme }) {
           label="Excluding keyword..."
           style={styles.fill}
           returnKeyType="done"
-          onSubmitEditing={() =>
-            lisaatagi(noword, setNoword, notags, setNotags)
-          }
+          onSubmitEditing={() => lisaatagi(noword, setNoword, setNotags)}
         ></TextInput>
         <Ionicons
           name="add-circle"
           size={40}
           color={theme.colors.card}
-          onPress={() => lisaatagi(noword, setNoword, notags, setNotags)}
+          onPress={() => lisaatagi(noword, setNoword, setNotags)}
         />
       </View>
       <View style={styles.horizontal}>
@@ -169,17 +165,13 @@ export default function Home({ route, navigation, theme }) {
           label="Location..."
           style={styles.fill}
           returnKeyType="done"
-          onSubmitEditing={() =>
-            lisaatagi(location, setLocation, locations, setLocations)
-          }
+          onSubmitEditing={() => lisaatagi(location, setLocation, setLocations)}
         ></TextInput>
         <Ionicons
           name="add-circle"
           size={40}
           color={theme.colors.card}
-          onPress={() =>
-            lisaatagi(location, setLocation, locations, setLocations)
-          }
+          onPress={() => lisaatagi(location, setLocation, setLocations)}
         />
       </View>
       <View style={styles.horizontal}>

@@ -1,7 +1,7 @@
 //TÄNNE LISTATAAN HAKUTULOKSET TYÖPAIKOISTA
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -9,24 +9,24 @@ import {
   FlatList,
   Linking,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
 
-export default function Results({ route, navigation, props }) {
+export default function Results({ route, navigation, props, theme }) {
   // const jobs = Data;
 
   // yritys luoda yhteys APIin
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000')
-      .then(response => response.json())
-      .then(data => setJobs(data._values))
-      .catch(err => {
-        console.log(err)
+    fetch("http://localhost:5000")
+      .then((response) => response.json())
+      .then((data) => setJobs(data._values))
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -37,7 +37,7 @@ export default function Results({ route, navigation, props }) {
         style={{
           height: 1,
           width: "80%",
-          backgroundColor: "#CED0CE",
+          backgroundColor: theme.colors.dullnavtext,
           marginLeft: "10%",
         }}
       />
@@ -95,10 +95,12 @@ export default function Results({ route, navigation, props }) {
                   fontSize: 16,
                   fontWeight: "bold",
                   lineHeight: 21,
-                  color: "#6A5ACD",
+                  color: theme.colors.card,
                   textDecorationLine: "underline",
                 }}
-              >See more</Text>
+              >
+                See more
+              </Text>
             </TouchableOpacity>
           </View>
         )}
