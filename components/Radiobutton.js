@@ -7,7 +7,7 @@ import { Checkbox } from "react-native-paper";
 export default function Radiobutton({ data, styles }) {
   const [userOption, setUserOption] = useState([]);
   // luodaan data-arrayn verran false-stateja:
-  const [checked, setChecked] = useState(new Array(data.length).fill(false));
+  const [checked, setChecked] = useState(new Array(data.length).fill(true));
 
   // SELECTHANDLER AJAA ONSELECTIN SEKÄ CHECKAA + PÄIVITTÄÄ KÄYTTÄJÄN VALINNAN
   const selectHandler = (value, position) => {

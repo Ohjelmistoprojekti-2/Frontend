@@ -1,5 +1,5 @@
 // TÄNNE RAKENNETAAN ALUSTAVA NÄKYMÄ, JOSSA TEHDÄÄN VALINNAT
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
 import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
@@ -66,6 +66,34 @@ export default function Home({ route, navigation, theme }) {
   const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
   const [notags, setNotags] = useState([]); // kaikki ei-tagit
 
+  function Tags(props) {
+    return props.data.map((tag, index) => {
+      if (tag != null) {
+        return (
+          <TouchableOpacity
+            style={styles.tagbutton}
+            key={index}
+            onPress={() => {
+              props.fun(index);
+            }}
+          >
+            <Text style={styles.center}>{tag}</Text>
+            <Ionicons
+              name="close-outline"
+              size={20}
+              style={styles.icon}
+              color={theme.colors.lighttext}
+            />
+          </TouchableOpacity>
+        );
+      }
+    });
+  }
+
+  useEffect(() => {
+    //alert("muuttui!!!");
+  }, [yestags]);
+
   const lisaatagi = () => {
     if (yesword == "") {
       return;
@@ -83,18 +111,14 @@ export default function Home({ route, navigation, theme }) {
   };
 
   const poistatagi = (index) => {
-    var varaarray = yestags;
     if (index !== -1) {
-      varaarray.splice(index, 1);
-      setYestags(varaarray);
+      setYestags((yestags) => yestags.filter((_, i) => i !== index));
     }
   };
 
   const poistaeitagi = (index) => {
-    var varaarray = notags;
     if (index !== -1) {
-      varaarray.splice(index, 1);
-      setNotags(varaarray);
+      setNotags((notags) => notags.filter((_, i) => i !== index));
     }
   };
 
@@ -126,23 +150,7 @@ export default function Home({ route, navigation, theme }) {
         />
       </View>
       <View style={styles.horizontal}>
-        {yestags.map((tag, index) => {
-          return (
-            <TouchableOpacity
-              style={styles.tagbutton}
-              key={index}
-              onPress={poistatagi}
-            >
-              <Text style={styles.center}>{tag}</Text>
-              <Ionicons
-                name="close-outline"
-                size={20}
-                style={styles.icon}
-                color={theme.colors.lighttext}
-              />
-            </TouchableOpacity>
-          );
-        })}
+        <Tags data={yestags} fun={poistatagi} />
       </View>
       <Text style={styles.paragraph}>Exclude jobs that contain keywords:</Text>
       <View style={styles.horizontalform}>
@@ -155,26 +163,15 @@ export default function Home({ route, navigation, theme }) {
           returnKeyType="done"
           onSubmitEditing={lisaaeitagi}
         ></TextInput>
-        <Ionicons name="add-circle" size={40} color={theme.colors.card} />
+        <Ionicons
+          name="add-circle"
+          size={40}
+          color={theme.colors.card}
+          onPress={lisaaeitagi}
+        />
       </View>
       <View style={styles.horizontal}>
-        {notags.map((tag, index) => {
-          return (
-            <TouchableOpacity
-              style={styles.tagbutton}
-              key={index}
-              onPress={poistaeitagi}
-            >
-              <Text style={styles.center}>{tag}</Text>
-              <Ionicons
-                name="close-outline"
-                size={20}
-                style={styles.icon}
-                color={theme.colors.lighttext}
-              />
-            </TouchableOpacity>
-          );
-        })}
+        <Tags data={notags} fun={poistaeitagi} />
       </View>
     </View>
   );

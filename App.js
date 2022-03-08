@@ -33,6 +33,7 @@ export default function App() {
           flex: 1,
           flexDirection: "row",
           color: colorscheme.lighttext,
+          alignItems: "center",
         }}
       >
         <Image
