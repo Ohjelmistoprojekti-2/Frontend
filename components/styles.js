@@ -27,4 +27,49 @@ const orangepurple = {
   },
 };
 
-export const colorthemes = { browngreen, orangepurple };
+const yellowblue = {
+  colors: {
+    primary: "#11296b",
+    secondary: "#ffdb57",
+    background: "#ededed",
+    card: "#ffcb05",
+    accent: "#00509d",
+    text: "#000",
+    lighttext: "#fff",
+    dullnavtext: "#ededed",
+  },
+};
+
+const redgreen = {
+  colors: {
+    primary: "#386641",
+    secondary: "#a7c957",
+    background: "#ededed",
+    card: "#bc4749",
+    accent: "#a7c957",
+    text: "#000",
+    lighttext: "#fff",
+    dullnavtext: "#6a994e",
+  },
+};
+
+const coralgrey = {
+  colors: {
+    primary: "#b3a394",
+    secondary: "#f87060",
+    background: "#ededed",
+    card: "#102542",
+    accent: "#102542",
+    text: "#000",
+    lighttext: "#fff",
+    dullnavtext: "#cdd7d6",
+  },
+};
+
+export const colorthemes = {
+  browngreen,
+  orangepurple,
+  yellowblue,
+  redgreen,
+  coralgrey,
+};
