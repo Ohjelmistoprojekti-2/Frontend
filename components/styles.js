@@ -6,7 +6,7 @@ const browngreen = {
     primary: "#2c6e49",
     secondary: "#ffc9b9",
     background: "#f2f2f2",
-    card: "#ff8c42",
+    card: "#4c956c",
     accent: "#d68c45",
     text: "#000",
     lighttext: "#fefee3",
@@ -55,11 +55,11 @@ const redgreen = {
 
 const coralgrey = {
   colors: {
-    primary: "#b3a394",
+    primary: "#102542",
     secondary: "#f87060",
     background: "#ededed",
     card: "#102542",
-    accent: "#102542",
+    accent: "#b3a394",
     text: "#000",
     lighttext: "#fff",
     dullnavtext: "#cdd7d6",
