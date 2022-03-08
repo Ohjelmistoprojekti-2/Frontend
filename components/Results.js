@@ -1,33 +1,34 @@
 //TÄNNE LISTATAAN HAKUTULOKSET TYÖPAIKOISTA
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
   StyleSheet,
   FlatList,
   Linking,
-  Button,
-  Pressable,
+  TouchableOpacity,
+  Alert
 } from "react-native";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
-import Data from "./jobs.json";
+// import Data from "./jobs.json";
 
 export default function Results({ route, navigation, props }) {
-  const jobs = Data;
+  // const jobs = Data;
 
   // yritys luoda yhteys APIin
-  // const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
-  // const fetchData = () => {
-  //   fetch('http://127.0.0.1:5000/')
-  //     .then(response => response.json())
-  //     .then(data => setJobs(data._values))
-  //     .then(data => console.log(jobs))
-  //     .catch(err => Alert.alert("Error", "Something went wrong"))
-  // }
+  useEffect(() => {
+    fetch('http://localhost:5000')
+      .then(response => response.json())
+      .then(data => setJobs(data._values))
+      .catch(err => {
+        console.log(err)
+      });
+  }, []);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
@@ -76,7 +77,7 @@ export default function Results({ route, navigation, props }) {
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => index}
         renderItem={({ item }) => (
           <View style={{ margin: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
@@ -85,7 +86,7 @@ export default function Results({ route, navigation, props }) {
             <Text style={{ marginBottom: 10, fontSize: 20 }}>
               {item._values.company}
             </Text>
-            <Pressable
+            <TouchableOpacity
               styles={styles.button}
               onPress={() => Linking.openURL(`${item._values.url}`)}
             >
@@ -97,10 +98,8 @@ export default function Results({ route, navigation, props }) {
                   color: "#6A5ACD",
                   textDecorationLine: "underline",
                 }}
-              >
-                See more
-              </Text>
-            </Pressable>
+              >See more</Text>
+            </TouchableOpacity>
           </View>
         )}
       />
