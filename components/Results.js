@@ -1,6 +1,7 @@
 //TÄNNE LISTATAAN HAKUTULOKSET TYÖPAIKOISTA
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -10,11 +11,23 @@ import {
   Button,
   Pressable,
 } from "react-native";
+
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 import Data from "./jobs.json";
 
 export default function Results({ route, navigation, props }) {
   const jobs = Data;
+
+  // yritys luoda yhteys APIin
+  // const [jobs, setJobs] = useState([]);
+
+  // const fetchData = () => {
+  //   fetch('http://127.0.0.1:5000/')
+  //     .then(response => response.json())
+  //     .then(data => setJobs(data._values))
+  //     .then(data => console.log(jobs))
+  //     .catch(err => Alert.alert("Error", "Something went wrong"))
+  // }
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
@@ -67,14 +80,14 @@ export default function Results({ route, navigation, props }) {
         renderItem={({ item }) => (
           <View style={{ margin: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {item.header}
+              {item._values.header}
             </Text>
             <Text style={{ marginBottom: 10, fontSize: 20 }}>
-              {item.company}
+              {item._values.company}
             </Text>
             <Pressable
               styles={styles.button}
-              onPress={() => Linking.openURL(`${item.url}`)}
+              onPress={() => Linking.openURL(`${item._values.url}`)}
             >
               <Text
                 style={{
