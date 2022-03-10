@@ -24,7 +24,7 @@ export default function Results({ route, navigation, props, theme }) {
   useEffect(() => {
     fetch("http://localhost:5000")
       .then((response) => response.json())
-      .then((data) => setJobs(data._values))
+      .then((data) => setJobs(data))
       .catch((err) => {
         console.log(err);
       });
