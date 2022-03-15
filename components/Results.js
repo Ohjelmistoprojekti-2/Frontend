@@ -5,15 +5,15 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
-  StyleSheet,
   FlatList,
   Linking,
   TouchableOpacity,
-  Alert,
 } from "react-native";
+import * as Colorthemes from "./styles";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
+
 
 export default function Results({
   route,
@@ -23,6 +23,9 @@ export default function Results({
   funktiot,
   muuttujat,
 }) {
+  
+  const colorthemes = Colorthemes.colorthemes;
+  
   // dummydata-haamu:
   // const jobs = Data;
 
@@ -37,12 +40,7 @@ export default function Results({
   const listSeparator = () => {
     return (
       <View
-        style={{
-          height: 1,
-          width: "80%",
-          backgroundColor: theme.colors.dullnavtext,
-          marginLeft: "10%",
-        }}
+        style={colorthemes.resultStyles.separator}
       />
     );
   };
@@ -50,8 +48,8 @@ export default function Results({
   // jos haettu lista sattuisi olemaan tyhjä, rendröidään tämä komponentti
   const jobListEmpty = () => {
     return (
-      <View style={{ alignItems: "center" }}>
-        <Text style={styles.item}>No data found</Text>
+      <View>
+        <Text style={colorthemes.resultStyles.header}>No data found</Text>
       </View>
     );
   };
@@ -60,78 +58,42 @@ export default function Results({
   const jobListHeader = () => {
     return (
       <Text
-        style={{
-          marginBottom: 20,
-          fontSize: 30,
-          textAlign: "center",
-          fontWeight: "bold",
-          textDecorationLine: "underline",
-        }}
-      >
-        Your results
-      </Text>
+        style={colorthemes.resultStyles.header}
+      >Your results</Text>
     );
   };
 
+  const renderItem = ({ item }) => (
+    <View style={colorthemes.resultStyles.items}>
+      <Text style={colorthemes.resultStyles.job}>
+        {item._values.header}
+      </Text>
+      <Text style={colorthemes.resultStyles.coname}>
+        {item._values.company}
+      </Text>
+      <TouchableOpacity
+        styles={colorthemes.resultStyles.button}
+        onPress={() => Linking.openURL(`${item._values.url}`)}>
+        <Text
+          style={colorthemes.resultStyles.buttonText}
+        >See more
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )
+
   return (
-    <View style={styles.container}>
+    <View style={colorthemes.resultStyles.container}>
       <FlatList
         data={jobs}
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
-        renderItem={({ item }) => (
-          <View style={{ margin: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {item._values.header}
-            </Text>
-            <Text style={{ marginBottom: 10, fontSize: 20 }}>
-              {item._values.company}
-            </Text>
-            <TouchableOpacity
-              styles={styles.button}
-              onPress={() => Linking.openURL(`${item._values.url}`)}
-            >
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  lineHeight: 21,
-                  color: theme.colors.card,
-                  textDecorationLine: "underline",
-                }}
-              >
-                See more
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        renderItem={renderItem}
       />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-  },
-  header: {
-    textAlign: "center",
-    fontSize: 20,
-  },
-  info: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "blue",
-  },
-});
+
