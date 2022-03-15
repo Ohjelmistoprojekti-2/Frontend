@@ -9,7 +9,9 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native";
+import RenderItem from "./RenderItem";
 import * as Colorthemes from "./styles";
+
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
@@ -23,9 +25,9 @@ export default function Results({
   funktiot,
   muuttujat,
 }) {
-  
+
   const colorthemes = Colorthemes.colorthemes;
-  
+
   // dummydata-haamu:
   // const jobs = Data;
 
@@ -63,24 +65,24 @@ export default function Results({
     );
   };
 
-  const renderItem = ({ item }) => (
-    <View style={colorthemes.resultStyles.items}>
-      <Text style={colorthemes.resultStyles.job}>
-        {item._values.header}
-      </Text>
-      <Text style={colorthemes.resultStyles.coname}>
-        {item._values.company}
-      </Text>
-      <TouchableOpacity
-        styles={colorthemes.resultStyles.button}
-        onPress={() => Linking.openURL(`${item._values.url}`)}>
-        <Text
-          style={colorthemes.resultStyles.buttonText}
-        >See more
-        </Text>
-      </TouchableOpacity>
-    </View>
-  )
+  // const renderItem = ({ item }) => (
+  //   <View style={colorthemes.resultStyles.items}>
+  //     <Text style={colorthemes.resultStyles.job}>
+  //       {item._values.header}
+  //     </Text>
+  //     <Text style={colorthemes.resultStyles.coname}>
+  //       {item._values.company}
+  //     </Text>
+  //     <TouchableOpacity
+  //       styles={colorthemes.resultStyles.button}
+  //       onPress={() => Linking.openURL(`${item._values.url}`)}>
+  //       <Text
+  //         style={colorthemes.resultStyles.buttonText}
+  //       >See more
+  //       </Text>
+  //     </TouchableOpacity>
+  //   </View>
+  // )
 
   return (
     <View style={colorthemes.resultStyles.container}>
@@ -90,7 +92,10 @@ export default function Results({
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
-        renderItem={renderItem}
+        renderItem={({ item }) => (
+          <RenderItem item={item} />
+        )}
+
       />
     </View>
   );
