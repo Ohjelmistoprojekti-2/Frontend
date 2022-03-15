@@ -5,7 +5,13 @@ import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Home({ route, navigation, theme }) {
+export default function Home({
+  route,
+  navigation,
+  theme,
+  funktiot,
+  muuttujat,
+}) {
   const styles = StyleSheet.create({
     paragraph: {
       marginTop: 24,
@@ -61,13 +67,17 @@ export default function Home({ route, navigation, theme }) {
     { value: "Siili Solutions" },
   ];
 
-  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
-  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
-  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+  // funktiot ja muuttujat app.js:stä propsina
+  const lisaatagi = funktiot.lisaatagi;
+  const poistatagi = funktiot.poistatagi;
 
-  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
-  const [notags, setNotags] = useState([]); // kaikki ei-tagit
-  const [locations, setLocations] = useState([]); // halutut sijainnit
+  const [yesword, setYesword] = muuttujat.yesmuuttujat; // kyllä-tagin muistipaikka
+  const [noword, setNoword] = muuttujat.nomuuttujat; // ei-tagin muistipaikka
+  const [location, setLocation] = muuttujat.locationmuuttujat; //sijainnin muistipaikka
+
+  const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
+  const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
+  const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
   function Tags(props) {
     return props.data.map((tag, index) => {
@@ -92,20 +102,6 @@ export default function Home({ route, navigation, theme }) {
       }
     });
   }
-
-  const lisaatagi = (muistipaikka, setMuistipaikka, setLitania) => {
-    if (muistipaikka == "") {
-      return;
-    }
-    setLitania((litania) => [...litania, muistipaikka]);
-    setMuistipaikka("");
-  };
-
-  const poistatagi = (index, setLitania) => {
-    if (index !== -1) {
-      setLitania((litania) => litania.filter((_, i) => i !== index));
-    }
-  };
 
   return (
     <View style={styles.form}>

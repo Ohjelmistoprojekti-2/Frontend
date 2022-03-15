@@ -15,19 +15,22 @@ import {
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
 
-export default function Results({ route, navigation, props, theme }) {
+export default function Results({
+  route,
+  navigation,
+  theme,
+  fetchJobs,
+  funktiot,
+  muuttujat,
+}) {
+  // dummydata-haamu:
   // const jobs = Data;
 
-  // yritys luoda yhteys APIin
+  // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000")
-      .then((response) => response.json())
-      .then((data) => setJobs(data))
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchJobs();
   }, []);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä

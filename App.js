@@ -26,6 +26,17 @@ export default function App() {
     colors: colorscheme,
   };
 
+  // fetchfunktio results-komponentille
+  const fetchJobs = () => {
+    fetch("http://localhost:5000")
+      .then((response) => response.json())
+      .then((data) => setJobs(data))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // yläpalkin ulkomuoto
   function LogoTitle() {
     return (
       <View
@@ -81,6 +92,29 @@ export default function App() {
     );
   }
 
+  const lisaatagi = (muistipaikka, setMuistipaikka, setLitania) => {
+    if (muistipaikka == "") {
+      return;
+    }
+    setLitania((litania) => [...litania, muistipaikka]);
+    setMuistipaikka("");
+  };
+
+  const poistatagi = (index, setLitania) => {
+    if (index !== -1) {
+      setLitania((litania) => litania.filter((_, i) => i !== index));
+    }
+  };
+
+  // tilamuuttujat joita home.js:ssä muokataan
+  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
+  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
+  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+
+  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
+  const [notags, setNotags] = useState([]); // kaikki ei-tagit
+  const [locations, setLocations] = useState([]); // halutut sijainnit
+
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
@@ -120,7 +154,20 @@ export default function App() {
         >
           <Tab.Screen
             name="Home"
-            children={() => <Home theme={theme} />}
+            children={() => (
+              <Home
+                theme={theme}
+                funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
+                muuttujat={{
+                  yesmuuttujat: [yesword, setYesword],
+                  nomuuttujat: [noword, setNoword],
+                  locationmuuttujat: [location, setLocation],
+                  yesarray: [yestags, setYestags],
+                  noarray: [notags, setNotags],
+                  locationsarray: [locations, setLocations],
+                }}
+              />
+            )}
             options={{
               title: "Options",
               headerTitle: (props) => <LogoTitle {...props} />,
@@ -132,7 +179,21 @@ export default function App() {
           />
           <Tab.Screen
             name="Results"
-            children={() => <Results theme={theme} />}
+            children={() => (
+              <Results
+                theme={theme}
+                fetchJobs={fetchJobs}
+                funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
+                muuttujat={{
+                  yesmuuttujat: [yesword, setYesword],
+                  nomuuttujat: [noword, setNoword],
+                  locationmuuttujat: [location, setLocation],
+                  yesarray: [yestags, setYestags],
+                  noarray: [notags, setNotags],
+                  locationsarray: [locations, setLocations],
+                }}
+              />
+            )}
             options={{
               title: "Job results",
               headerTitle: (props) => <LogoTitle {...props} />,
