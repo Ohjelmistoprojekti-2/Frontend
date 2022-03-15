@@ -2,20 +2,12 @@
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  Linking,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, FlatList, Linking, TouchableOpacity } from "react-native";
 import RenderItem from "./RenderItem";
 import * as Colorthemes from "./styles";
 
-
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
-
 
 export default function Results({
   route,
@@ -25,7 +17,6 @@ export default function Results({
   funktiot,
   muuttujat,
 }) {
-
   const colorthemes = Colorthemes.colorthemes;
 
   // dummydata-haamu:
@@ -40,11 +31,7 @@ export default function Results({
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
-    return (
-      <View
-        style={colorthemes.resultStyles.separator}
-      />
-    );
+    return <View style={colorthemes.resultStyles.separator} />;
   };
 
   // jos haettu lista sattuisi olemaan tyhjä, rendröidään tämä komponentti
@@ -58,11 +45,7 @@ export default function Results({
 
   // header propsi
   const jobListHeader = () => {
-    return (
-      <Text
-        style={colorthemes.resultStyles.header}
-      >Your results</Text>
-    );
+    return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
   };
 
   // const renderItem = ({ item }) => (
@@ -93,12 +76,14 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => (
-          <RenderItem item={item} />
+          <RenderItem
+            item={item}
+            yestags={yestags}
+            notags={notags}
+            locations={locations}
+          />
         )}
-
       />
     </View>
   );
 }
-
-
