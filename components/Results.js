@@ -14,18 +14,26 @@ import * as Colorthemes from "./styles";
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
 
-export default function Results({ route, navigation, props, theme }) {
+
+export default function Results({
+  route,
+  navigation,
+  theme,
+  fetchJobs,
+  funktiot,
+  muuttujat,
+}) {
+  
   const colorthemes = Colorthemes.colorthemes;
+  
+  // dummydata-haamu:
   // const jobs = Data;
+
+  // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000")
-      .then((response) => response.json())
-      .then((data) => setJobs(data))
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchJobs();
   }, []);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
