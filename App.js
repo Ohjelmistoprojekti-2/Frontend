@@ -19,12 +19,9 @@ export default function App() {
     colorthemes.orangepurple.colors
   );
 
-<<<<<<< Updated upstream
-=======
   // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
 
->>>>>>> Stashed changes
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -34,7 +31,7 @@ export default function App() {
 
   // fetchfunktio results-komponentille
   const fetchJobs = () => {
-    fetch("http://localhost:5000")
+    fetch("http://localhost:5000/api/tyopaikat")
       .then((response) => response.json())
       .then((data) => setJobs(data))
       .catch((err) => {
@@ -210,11 +207,8 @@ export default function App() {
                   yesarray: [yestags, setYestags],
                   noarray: [notags, setNotags],
                   locationsarray: [locations, setLocations],
-<<<<<<< Updated upstream
-=======
                   jobsmuuttujat: [jobs, setJobs],
                   valintamuuttujat: [userOptions, setUserOptions],
->>>>>>> Stashed changes
                 }}
               />
             )}

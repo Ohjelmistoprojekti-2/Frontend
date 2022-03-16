@@ -2,18 +2,11 @@
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  Linking,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, FlatList, Linking, TouchableOpacity } from "react-native";
 import * as Colorthemes from "./styles";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 import Data from "./jobs.json";
-
 
 export default function Results({
   route,
@@ -23,22 +16,16 @@ export default function Results({
   funktiot,
   muuttujat,
 }) {
-  
   const colorthemes = Colorthemes.colorthemes;
-  
+
   // dummydata-haamu:
   const jobs = Data;
 
-<<<<<<< Updated upstream
-  // listan sisältömuuttuja
-  const [jobs, setJobs] = useState([]);
-=======
   // muuttujat app.js:stä
   //const [jobs, setJobs] = muuttujat.jobsmuuttujat;
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
->>>>>>> Stashed changes
 
   useEffect(() => {
     //fetchJobs();
@@ -46,11 +33,7 @@ export default function Results({
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
-    return (
-      <View
-        style={colorthemes.resultStyles.separator}
-      />
-    );
+    return <View style={colorthemes.resultStyles.separator} />;
   };
 
   // jos haettu lista sattuisi olemaan tyhjä, rendröidään tämä komponentti
@@ -64,31 +47,23 @@ export default function Results({
 
   // header propsi
   const jobListHeader = () => {
-    return (
-      <Text
-        style={colorthemes.resultStyles.header}
-      >Your results</Text>
-    );
+    return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
   };
 
   const renderItem = ({ item }) => (
     <View style={colorthemes.resultStyles.items}>
-      <Text style={colorthemes.resultStyles.job}>
-        {item._values.header}
-      </Text>
+      <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
       </Text>
       <TouchableOpacity
         styles={colorthemes.resultStyles.button}
-        onPress={() => Linking.openURL(`${item._values.url}`)}>
-        <Text
-          style={colorthemes.resultStyles.buttonText}
-        >See more
-        </Text>
+        onPress={() => Linking.openURL(`${item._values.url}`)}
+      >
+        <Text style={colorthemes.resultStyles.buttonText}>See more</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 
   return (
     <View style={colorthemes.resultStyles.container}>
@@ -103,5 +78,3 @@ export default function Results({
     </View>
   );
 }
-
-
