@@ -12,7 +12,7 @@ import {
 import * as Colorthemes from "./styles";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
-// import Data from "./jobs.json";
+import Data from "./jobs.json";
 
 
 export default function Results({
@@ -27,13 +27,21 @@ export default function Results({
   const colorthemes = Colorthemes.colorthemes;
   
   // dummydata-haamu:
-  // const jobs = Data;
+  const jobs = Data;
 
+<<<<<<< Updated upstream
   // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
+=======
+  // muuttujat app.js:stä
+  //const [jobs, setJobs] = muuttujat.jobsmuuttujat;
+  const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
+  const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
+  const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
+>>>>>>> Stashed changes
 
   useEffect(() => {
-    fetchJobs();
+    //fetchJobs();
   }, []);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä

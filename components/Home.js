@@ -11,6 +11,7 @@ export default function Home({
   theme,
   funktiot,
   muuttujat,
+  tyopaikat,
 }) {
   const styles = StyleSheet.create({
     paragraph: {
@@ -58,18 +59,12 @@ export default function Home({
     },
     icon: { marginHorizontal: 5 },
   });
-  // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
-  const data = [
-    { value: "Tietoevry" },
-    { value: "Reaktor" },
-    { value: "Visma" },
-    { value: "Futurice" },
-    { value: "Siili Solutions" },
-  ];
 
   // funktiot ja muuttujat app.js:stä propsina
   const lisaatagi = funktiot.lisaatagi;
   const poistatagi = funktiot.poistatagi;
+
+  const tyopaikkaarray = muuttujat.tyopaikat;
 
   const [yesword, setYesword] = muuttujat.yesmuuttujat; // kyllä-tagin muistipaikka
   const [noword, setNoword] = muuttujat.nomuuttujat; // ei-tagin muistipaikka
@@ -78,6 +73,8 @@ export default function Home({
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
+
+  const [userOptions, setUserOptions] = muuttujat.valintamuuttujat;
 
   function Tags(props) {
     return props.data.map((tag, index) => {
@@ -106,7 +103,11 @@ export default function Home({
   return (
     <View style={styles.form}>
       <Text style={styles.paragraph}>Show jobs from selected companies:</Text>
-      <Radiobutton data={data} styles={styles} />
+      <Radiobutton
+        tyopaikat={tyopaikkaarray}
+        styles={styles}
+        valintamuuttujat={[userOptions, setUserOptions]}
+      />
       <Text style={styles.paragraph}>
         Show only jobs that contain keywords:
       </Text>

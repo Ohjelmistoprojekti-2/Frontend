@@ -19,6 +19,12 @@ export default function App() {
     colorthemes.orangepurple.colors
   );
 
+<<<<<<< Updated upstream
+=======
+  // listan sisältömuuttuja
+  const [jobs, setJobs] = useState([]);
+
+>>>>>>> Stashed changes
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -106,6 +112,15 @@ export default function App() {
     }
   };
 
+  // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
+  const tyopaikat = [
+    "Tietoevry",
+    "Reaktor",
+    "Visma",
+    "Futurice",
+    "Siili Solutions",
+  ];
+
   // tilamuuttujat joita home.js:ssä muokataan
   const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
   const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
@@ -114,6 +129,8 @@ export default function App() {
   const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
   const [notags, setNotags] = useState([]); // kaikki ei-tagit
   const [locations, setLocations] = useState([]); // halutut sijainnit
+
+  const [userOptions, setUserOptions] = useState(tyopaikat); // valitut työpaikat
 
   return (
     <PaperProvider theme={theme}>
@@ -165,6 +182,8 @@ export default function App() {
                   yesarray: [yestags, setYestags],
                   noarray: [notags, setNotags],
                   locationsarray: [locations, setLocations],
+                  valintamuuttujat: [userOptions, setUserOptions],
+                  tyopaikat: tyopaikat,
                 }}
               />
             )}
@@ -191,6 +210,11 @@ export default function App() {
                   yesarray: [yestags, setYestags],
                   noarray: [notags, setNotags],
                   locationsarray: [locations, setLocations],
+<<<<<<< Updated upstream
+=======
+                  jobsmuuttujat: [jobs, setJobs],
+                  valintamuuttujat: [userOptions, setUserOptions],
+>>>>>>> Stashed changes
                 }}
               />
             )}
