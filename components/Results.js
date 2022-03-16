@@ -22,8 +22,11 @@ export default function Results({
   // dummydata-haamu:
   // const jobs = Data;
 
-  // listan sisältömuuttuja
-  const [jobs, setJobs] = useState([]);
+    // muuttujat app.js:stä
+    const [jobs, setJobs] = muuttujat.jobsmuuttujat;
+    const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
+    const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
+    const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
   useEffect(() => {
     fetchJobs();
