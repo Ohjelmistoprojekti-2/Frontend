@@ -19,13 +19,8 @@ export default function App() {
     colorthemes.orangepurple.colors
   );
 
-<<<<<<< HEAD
-    // listan sisältömuuttuja
-    const [jobs, setJobs] = useState([]);
-=======
   // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 
   const theme = {
     ...DefaultTheme,
@@ -212,12 +207,8 @@ export default function App() {
                   yesarray: [yestags, setYestags],
                   noarray: [notags, setNotags],
                   locationsarray: [locations, setLocations],
-<<<<<<< HEAD
-                  jobsmuuttujat: [jobs, setJobs]
-=======
                   jobsmuuttujat: [jobs, setJobs],
                   valintamuuttujat: [userOptions, setUserOptions],
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
                 }}
               />
             )}

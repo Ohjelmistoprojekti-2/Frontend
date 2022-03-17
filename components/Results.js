@@ -3,18 +3,10 @@
 // EI YHDISTETTY HOME KOPMPONENTTIIN
 import React, { useState, useEffect } from "react";
 import { Text, View, FlatList, Linking, TouchableOpacity } from "react-native";
-<<<<<<< HEAD
-import RenderItem from "./RenderItem";
-import * as Colorthemes from "./styles";
-
-// "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
-// import Data from "./jobs.json";
-=======
 import * as Colorthemes from "./styles";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 import Data from "./jobs.json";
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 
 export default function Results({
   route,
@@ -25,17 +17,6 @@ export default function Results({
   muuttujat,
 }) {
   const colorthemes = Colorthemes.colorthemes;
-<<<<<<< HEAD
-
-  // dummydata-haamu:
-  // const jobs = Data;
-
-    // muuttujat app.js:stä
-    const [jobs, setJobs] = muuttujat.jobsmuuttujat;
-    const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
-    const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
-    const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
-=======
 
   // dummydata-haamu:
   const jobs = Data;
@@ -45,7 +26,6 @@ export default function Results({
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 
   useEffect(() => {
     //fetchJobs();
@@ -70,26 +50,6 @@ export default function Results({
     return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
   };
 
-<<<<<<< HEAD
-  // const renderItem = ({ item }) => (
-  //   <View style={colorthemes.resultStyles.items}>
-  //     <Text style={colorthemes.resultStyles.job}>
-  //       {item._values.header}
-  //     </Text>
-  //     <Text style={colorthemes.resultStyles.coname}>
-  //       {item._values.company}
-  //     </Text>
-  //     <TouchableOpacity
-  //       styles={colorthemes.resultStyles.button}
-  //       onPress={() => Linking.openURL(`${item._values.url}`)}>
-  //       <Text
-  //         style={colorthemes.resultStyles.buttonText}
-  //       >See more
-  //       </Text>
-  //     </TouchableOpacity>
-  //   </View>
-  // )
-=======
   const renderItem = ({ item }) => (
     <View style={colorthemes.resultStyles.items}>
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
@@ -104,7 +64,6 @@ export default function Results({
       </TouchableOpacity>
     </View>
   );
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 
   return (
     <View style={colorthemes.resultStyles.container}>

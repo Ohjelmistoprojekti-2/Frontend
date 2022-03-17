@@ -5,11 +5,7 @@ import * as Colorthemes from "./styles";
 const colorthemes = Colorthemes.colorthemes;
 
 export default function RenderItem({ item, yestags, notags, locations }) {
-<<<<<<< HEAD
-  const [naytetaan, setNaytetaan] = useState(false); // oletusarvo: itemiä ei näytetä
-=======
   const [naytetaan, setNaytetaan] = useState(true); // oletusarvo: itemiä ei näytetä
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 
   // todo: tarkista, onko itemin location jokin valituista locations-arrayssa
 
@@ -28,12 +24,6 @@ export default function RenderItem({ item, yestags, notags, locations }) {
   //// -yestags-tageista jokin tai useampi löytyy tekstistä
   //// - tekstistä ei löydy yhtään notags-tagia
 
-<<<<<<< HEAD
-
-  // jos item on selvinnyt seulasta
-  return (
-    <View style={[colorthemes.resultStyles.items, { display: naytetaan ? 'block' : 'none' }]}>
-=======
   // jos item on selvinnyt seulasta
   return (
     <View
@@ -42,7 +32,6 @@ export default function RenderItem({ item, yestags, notags, locations }) {
         { display: naytetaan ? "block" : "none" },
       ]}
     >
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
@@ -55,8 +44,4 @@ export default function RenderItem({ item, yestags, notags, locations }) {
       </TouchableOpacity>
     </View>
   );
-<<<<<<< HEAD
-
-=======
->>>>>>> cc111718514a6d895e7dc4b5376efa9277f9c49d
 }
