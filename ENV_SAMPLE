@@ -1,0 +1,2 @@
+//luo frontend juureen .env tiedosto ja kopioi alempi rivi sinne
+SECRET_API_KEY="avain tähän"

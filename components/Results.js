@@ -2,7 +2,7 @@
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList, Linking, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, Linking, TouchableOpacity, ScrollView } from "react-native";
 import RenderItem from "./RenderItem";
 import * as Colorthemes from "./styles";
 
@@ -71,7 +71,7 @@ export default function Results({
   // )
 
   return (
-    <View style={colorthemes.resultStyles.container}>
+    <ScrollView style={colorthemes.resultStyles.container}>
       <FlatList
         data={jobs}
         ItemSeparatorComponent={listSeparator}
@@ -87,6 +87,6 @@ export default function Results({
           />
         )}
       />
-    </View>
+    </ScrollView>
   );
 }

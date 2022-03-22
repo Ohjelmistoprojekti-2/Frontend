@@ -7,6 +7,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Image, View, Text } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
+import 'dotenv/config'
+
+//liittyy .env tiedoston käyttöön
+require('dotenv').config()
 
 //TÄMÄ LIITTYY NAVIGOINTIIN
 const Tab = createBottomTabNavigator();
@@ -29,9 +33,14 @@ export default function App() {
     colors: colorscheme,
   };
 
-  // fetchfunktio results-komponentille
+  // fetchfunktio results-komponentille  https://tyonhakuappi.herokuapp.com/api/tyopaikat    process.env.SECRET_API_KEY
   const fetchJobs = () => {
-    fetch("http://localhost:5000/api/tyopaikat")
+    fetch("http://127.0.0.1:5000/api/tyopaikat",{
+      method: 'GET',
+      headers: {
+        'API-KEY':'6cc1d83f-0e10-4906-a5e1-1f6016f093bc'
+      }
+    })
       .then((response) => response.json())
       .then((data) => setJobs(data))
       .catch((err) => {

@@ -5,7 +5,7 @@ import * as Colorthemes from "./styles";
 const colorthemes = Colorthemes.colorthemes;
 
 export default function RenderItem({ item, yestags, notags, locations }) {
-  const [naytetaan, setNaytetaan] = useState(false); // oletusarvo: itemiä ei näytetä
+  const [naytetaan, setNaytetaan] = useState(true); // oletusarvo: itemiä ei näytetä
 
   // todo: tarkista, onko itemin location jokin valituista locations-arrayssa
 
@@ -27,7 +27,7 @@ export default function RenderItem({ item, yestags, notags, locations }) {
 
   // jos item on selvinnyt seulasta
   return (
-    <View style={[colorthemes.resultStyles.items, { display: naytetaan ? 'block' : 'none' }]}>
+    <View style={[colorthemes.resultStyles.items, { display: naytetaan ? 'flex' : 'none' }]}>
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
