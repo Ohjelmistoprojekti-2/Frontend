@@ -2,11 +2,18 @@
 // NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
 // EI YHDISTETTY HOME KOPMPONENTTIIN
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList, Linking, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  Linking,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import * as Colorthemes from "./styles";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
-import Data from "./jobs.json";
+// import Data from "./jobs.json";
 
 export default function Results({
   route,
@@ -19,16 +26,16 @@ export default function Results({
   const colorthemes = Colorthemes.colorthemes;
 
   // dummydata-haamu:
-  const jobs = Data;
+  // const jobs = Data;
 
   // muuttujat app.js:stä
-  //const [jobs, setJobs] = muuttujat.jobsmuuttujat;
+  const [jobs, setJobs] = muuttujat.jobsmuuttujat;
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
   useEffect(() => {
-    //fetchJobs();
+    fetchJobs();
   }, []);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
@@ -66,7 +73,7 @@ export default function Results({
   );
 
   return (
-    <View style={colorthemes.resultStyles.container}>
+    <ScrollView style={colorthemes.resultStyles.container}>
       <FlatList
         data={jobs}
         ItemSeparatorComponent={listSeparator}
@@ -75,6 +82,6 @@ export default function Results({
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
       />
-    </View>
+    </ScrollView>
   );
 }

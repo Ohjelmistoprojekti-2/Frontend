@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./components/Home";
@@ -19,8 +19,29 @@ export default function App() {
     colorthemes.orangepurple.colors
   );
 
+  const [originaljobs, setOriginaljobs] = useState([]);
   // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
+
+  // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
+  const tyopaikat = [
+    "Tietoevry",
+    "Reaktor",
+    "Visma",
+    "Futurice",
+    "Siili Solutions",
+  ];
+
+  // tilamuuttujat joita home.js:ssä muokataan
+  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
+  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
+  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+
+  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
+  const [notags, setNotags] = useState([]); // kaikki ei-tagit
+  const [locations, setLocations] = useState([]); // halutut sijainnit
+
+  const [userOptions, setUserOptions] = useState(tyopaikat); // valitut työpaikat
 
   const theme = {
     ...DefaultTheme,
@@ -29,11 +50,26 @@ export default function App() {
     colors: colorscheme,
   };
 
+  // filtterifunktio, toistaiseksi vain työpaikkojen nimille
+  const filterJobs = (jobs, tags) => {
+    const filtered = jobs.filter((job) => tags.includes(job._values.company));
+    setJobs(filtered);
+    console.log("Filtered: " + filtered);
+  };
+
   // fetchfunktio results-komponentille
   const fetchJobs = () => {
-    fetch("http://localhost:5000/api/tyopaikat")
+    fetch("https://tyonhakuappi.herokuapp.com/api/tyopaikat", {
+      method: "GET",
+      headers: {
+        "API-KEY": "6cc1d83f-0e10-4906-a5e1-1f6016f093bc",
+      },
+    })
       .then((response) => response.json())
-      .then((data) => setJobs(data))
+      .then((data) => {
+        setJobs(data);
+        setOriginaljobs(data);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -109,25 +145,9 @@ export default function App() {
     }
   };
 
-  // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
-  const tyopaikat = [
-    "Tietoevry",
-    "Reaktor",
-    "Visma",
-    "Futurice",
-    "Siili Solutions",
-  ];
-
-  // tilamuuttujat joita home.js:ssä muokataan
-  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
-  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
-  const [location, setLocation] = useState(""); //sijainnin muistipaikka
-
-  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
-  const [notags, setNotags] = useState([]); // kaikki ei-tagit
-  const [locations, setLocations] = useState([]); // halutut sijainnit
-
-  const [userOptions, setUserOptions] = useState(tyopaikat); // valitut työpaikat
+  useEffect(() => {
+    filterJobs(originaljobs, userOptions);
+  }, [userOptions]);
 
   return (
     <PaperProvider theme={theme}>
