@@ -35,10 +35,6 @@ export default function Results({
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
     return <View style={colorthemes.resultStyles.separator} />;
@@ -75,7 +71,6 @@ export default function Results({
 
   return (
     <ScrollView style={colorthemes.resultStyles.container}>
-
       <FlatList
         data={jobs}
         ItemSeparatorComponent={listSeparator}
@@ -83,16 +78,15 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-      // renderItem={({ item }) => (
-      //   <RenderItem
-      //     item={item}
-      //     yestags={yestags}
-      //     notags={notags}
-      //     locations={locations}
-      //   />
-      // )}
+        // renderItem={({ item }) => (
+        //   <RenderItem
+        //     item={item}
+        //     yestags={yestags}
+        //     notags={notags}
+        //     locations={locations}
+        //   />
+        // )}
       />
-
     </ScrollView>
   );
 }

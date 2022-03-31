@@ -160,32 +160,40 @@ export default function App() {
     }
   };
 
+  const kyllatagit = (job) => {
+    yestags.map((tag) => {});
+  };
+
+  // TÄMÄ ON KEHITYSKELPOINEN FUNKTIO:
   useEffect(() => {
     const filtered = originaljobs
+
+      .filter((job) => userOptions.includes(job._values.company))
+
       .filter((job) => {
-        for (let i = 0; i < userOptions.length; i++) {
-          userOptions[i].includes(job._values.company)
-        }
-      }
-      )
-      .filter((job) => {
-        for (let i = 0; i < yestags.length; i++) {
-          yestags[i].includes(job._values.text)
-        }
-      })
+        return yestags.some((tag) => {
+          console.log(job._values.text.indexOf(tag) > -1);
+          return job._values.text.indexOf(tag) > -1;
+        });
+      });
+    /*
       .filter((job) => {
         for (let i = 0; i < notags.length; i++) {
-          !notags[i].includes(job._values.text)
+          !notags[i].includes(job._values.text);
         }
       })
       .filter((job) => {
         for (let i = 0; i < locations.length; i++) {
-          locations[i].includes(job._values.location)
+          locations[i].includes(job._values.location);
         }
-      });
+      });*/
     setJobs(filtered);
     console.log("Filtered: " + filtered);
   }, [userOptions, yestags, notags, locations]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   // useEffect(() => {
   //   const filtered = originaljobs
@@ -208,7 +216,6 @@ export default function App() {
   //   setJobs(filtered);
   //   console.log("Filtered: " + filtered);
   // }, [userOptions, yestags, notags, locations]);
-
 
   return (
     <PaperProvider theme={theme}>
