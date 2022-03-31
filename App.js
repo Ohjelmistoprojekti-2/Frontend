@@ -167,14 +167,28 @@ export default function App() {
   // TÄMÄ ON KEHITYSKELPOINEN FUNKTIO:
   useEffect(() => {
     const filtered = originaljobs
-
+      // company
       .filter((job) => userOptions.includes(job._values.company))
 
+      // yestags
       .filter((job) => {
-        return yestags.some((tag) => {
-          console.log(job._values.text.indexOf(tag) > -1);
-          return job._values.text.indexOf(tag) > -1;
-        });
+        if (yestags.length > 0) {
+          return yestags.some((tag) => {
+            return job._values.text.indexOf(tag) > -1;
+          });
+        } else {
+          return job;
+        }
+      })
+      // notags
+      .filter((job) => {
+        if (notags.length > 0) {
+          return notags.some((tag) => {
+            return job._values.text.indexOf(tag) < 0;
+          });
+        } else {
+          return job;
+        }
       });
     /*
       .filter((job) => {
