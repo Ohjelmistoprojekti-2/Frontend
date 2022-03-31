@@ -50,12 +50,27 @@ export default function App() {
     colors: colorscheme,
   };
 
+  //TÄSSÄ YRITÄN LUODA FUNKTIOT JA FILTTERÖIDÄ SEN KAUTTA
   // filtterifunktio, toistaiseksi vain työpaikkojen nimille
-  const filterJobs = (jobs, tags) => {
-    const filtered = jobs.filter((job) => tags.includes(job._values.company));
-    setJobs(filtered);
-    console.log("Filtered: " + filtered);
-  };
+  // const filterJobs = (jobs, tags) => {
+  //   const filtered = jobs.filter((job) => tags.includes(job._values.company));
+  //   setJobs(filtered);
+  //   console.log("Filtered: " + filtered);
+  // };
+
+  // const filterLocation = (jobs, locations) => {
+  //   const filteredLocations = jobs.filter((job) => locations.includes(job._values.location));
+  //   setLocations(filteredLocations);
+  //   console.log("Filtered2: " + filteredLocations);
+  // };
+
+  // const functions = [filterJobs, filterLocation];
+
+  // const filteredResults = (f) => {
+  //   for (f in functions) {
+  //     jobresults = jobs.filter(functions[f])
+  //   };
+  // };
 
   // fetchfunktio results-komponentille
   const fetchJobs = () => {
@@ -146,8 +161,54 @@ export default function App() {
   };
 
   useEffect(() => {
-    filterJobs(originaljobs, userOptions);
-  }, [userOptions]);
+    const filtered = originaljobs
+      .filter((job) => {
+        for (let i = 0; i < userOptions.length; i++) {
+          userOptions[i].includes(job._values.company)
+        }
+      }
+      )
+      .filter((job) => {
+        for (let i = 0; i < yestags.length; i++) {
+          yestags[i].includes(job._values.text)
+        }
+      })
+      .filter((job) => {
+        for (let i = 0; i < notags.length; i++) {
+          !notags[i].includes(job._values.text)
+        }
+      })
+      .filter((job) => {
+        for (let i = 0; i < locations.length; i++) {
+          locations[i].includes(job._values.location)
+        }
+      });
+    setJobs(filtered);
+    console.log("Filtered: " + filtered);
+  }, [userOptions, yestags, notags, locations]);
+
+  // useEffect(() => {
+  //   const filtered = originaljobs
+  //     .filter((job) => {
+  //       userOptions.map(userOptions.includes(job._values.company))
+  //     }
+  //     )
+  //     .filter((job) => {
+  //       yestags.map(yestags.includes(job._values.text))
+  //     }
+  //     )
+  //     .filter((job) => {
+  //       notags.map(!notags.includes(job._values.text))
+  //     }
+  //     )
+  //     .filter((job) => {
+  //       locations.map(locations.includes(job._values.location))
+  //     }
+  //     );
+  //   setJobs(filtered);
+  //   console.log("Filtered: " + filtered);
+  // }, [userOptions, yestags, notags, locations]);
+
 
   return (
     <PaperProvider theme={theme}>

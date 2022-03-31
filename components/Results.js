@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 import * as Colorthemes from "./styles";
+// import RenderItem from "./RenderItem";
 
 // "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
 // import Data from "./jobs.json";
@@ -74,21 +75,24 @@ export default function Results({
 
   return (
     <ScrollView style={colorthemes.resultStyles.container}>
+
       <FlatList
         data={jobs}
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
-        renderItem={({ item }) => (
-          <RenderItem
-            item={item}
-            yestags={yestags}
-            notags={notags}
-            locations={locations}
-          />
-        )}
+        renderItem={renderItem}
+      // renderItem={({ item }) => (
+      //   <RenderItem
+      //     item={item}
+      //     yestags={yestags}
+      //     notags={notags}
+      //     locations={locations}
+      //   />
+      // )}
       />
+
     </ScrollView>
   );
 }
