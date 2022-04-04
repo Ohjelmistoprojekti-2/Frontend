@@ -1,6 +1,6 @@
 // TÄNNE RAKENNETAAN ALUSTAVA NÄKYMÄ, JOSSA TEHDÄÄN VALINNAT
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, Button, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -101,7 +101,7 @@ export default function Home({
   }
 
   return (
-    <View style={styles.form}>
+    <ScrollView style={styles.form}>
       <Text style={styles.paragraph}>Show jobs from selected companies:</Text>
       <Radiobutton
         tyopaikat={tyopaikkaarray}
@@ -174,6 +174,6 @@ export default function Home({
       <View style={styles.horizontal}>
         <Tags data={locations} setLitania={setLocations} />
       </View>
-    </View>
+    </ScrollView>
   );
 }

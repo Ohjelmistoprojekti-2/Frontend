@@ -35,6 +35,30 @@ export default function Results({
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
+  // muunnetaan locationista kaikki array muotoon, tämä yritys myös app.js komponentissa 
+  // const locationsToArray =
+  //   jobs.map(job => {
+  //     if (typeof job._values.location === 'string') {
+  //       return job._values.location.split(", ");
+  //     } else {
+  //       return job._values.location;
+  //     };
+  //   })
+
+  // yritys filtteröidä locations results.js komponentissa
+  // const getResult = (locations, jobs) => {
+  //   return jobs.filter(function (obj) {
+  //     return obj.Object.keys(_values).some(function (item) {
+  //       return item.location.some(function (o) {
+  //         return o.indexOf(locations) >= 0;
+  //       })
+  //     })
+  //   })
+  // }
+
+
+  console.log(jobs);
+
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
     return <View style={colorthemes.resultStyles.separator} />;
@@ -57,9 +81,8 @@ export default function Results({
   const renderItem = ({ item }) => (
     <View style={colorthemes.resultStyles.items}>
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
-      <Text style={colorthemes.resultStyles.coname}>
-        {item._values.company}
-      </Text>
+      <Text style={colorthemes.resultStyles.coname}>{item._values.company}</Text>
+      <Text style={colorthemes.resultStyles.coname}>{item._values.location}</Text>
       <TouchableOpacity
         styles={colorthemes.resultStyles.button}
         onPress={() => Linking.openURL(`${item._values.url}`)}
@@ -72,20 +95,20 @@ export default function Results({
   return (
     <ScrollView style={colorthemes.resultStyles.container}>
       <FlatList
-        data={jobs}
+        data={getResult}
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-        // renderItem={({ item }) => (
-        //   <RenderItem
-        //     item={item}
-        //     yestags={yestags}
-        //     notags={notags}
-        //     locations={locations}
-        //   />
-        // )}
+      // renderItem={({ item }) => (
+      //   <RenderItem
+      //     item={item}
+      //     yestags={yestags}
+      //     notags={notags}
+      //     locations={locations}
+      //   />
+      // )}
       />
     </ScrollView>
   );

@@ -50,29 +50,6 @@ export default function App() {
     colors: colorscheme,
   };
 
-  //TÄSSÄ YRITÄN LUODA FUNKTIOT JA FILTTERÖIDÄ SEN KAUTTA
-  // filtterifunktio, toistaiseksi vain työpaikkojen nimille
-  // const filterJobs = (jobs, tags) => {
-  //   const filtered = jobs.filter((job) => tags.includes(job._values.company));
-  //   setJobs(filtered);
-  //   console.log("Filtered: " + filtered);
-  // };
-
-  // const filterLocation = (jobs, locations) => {
-  //   const filteredLocations = jobs.filter((job) => locations.includes(job._values.location));
-  //   setLocations(filteredLocations);
-  //   console.log("Filtered2: " + filteredLocations);
-  // };
-
-  // const functions = [filterJobs, filterLocation];
-
-  // const filteredResults = (f) => {
-  //   for (f in functions) {
-  //     jobresults = jobs.filter(functions[f])
-  //   };
-  // };
-
-  // fetchfunktio results-komponentille
   const fetchJobs = () => {
     fetch("https://tyonhakuappi.herokuapp.com/api/tyopaikat", {
       method: "GET",
@@ -161,13 +138,13 @@ export default function App() {
   };
 
   const kyllatagit = (job) => {
-    yestags.map((tag) => {});
+    yestags.map((tag) => { });
   };
 
-  // TÄMÄ ON KEHITYSKELPOINEN FUNKTIO:
+  // työpaikkojen filtteröinti:
   useEffect(() => {
     const filtered = originaljobs
-      // company
+      // company names
       .filter((job) => userOptions.includes(job._values.company))
 
       // yestags
@@ -189,18 +166,26 @@ export default function App() {
         } else {
           return job;
         }
-      });
-    /*
+      })
+      // locations
       .filter((job) => {
-        for (let i = 0; i < notags.length; i++) {
-          !notags[i].includes(job._values.text);
+        if (locations.length > 0) {
+          return locations.some((tag) => {
+            return job._values.location.indexOf(tag) > - 1;
+          })
+        } else {
+          return job;
         }
       })
-      .filter((job) => {
-        for (let i = 0; i < locations.length; i++) {
-          locations[i].includes(job._values.location);
-        }
-      });*/
+      // muuttaa locationit array-muotoon mutta muuten kehitysvaiheessa
+      // .map((job) => {
+      //   if (typeof job._values.location === 'string') {
+      //     return job._values.location.split(", ");
+      //   } else {
+      //     return job._values.location;
+      //   }
+      // })
+      ;
     setJobs(filtered);
     console.log("Filtered: " + filtered);
   }, [userOptions, yestags, notags, locations]);
@@ -208,28 +193,6 @@ export default function App() {
   useEffect(() => {
     fetchJobs();
   }, []);
-
-  // useEffect(() => {
-  //   const filtered = originaljobs
-  //     .filter((job) => {
-  //       userOptions.map(userOptions.includes(job._values.company))
-  //     }
-  //     )
-  //     .filter((job) => {
-  //       yestags.map(yestags.includes(job._values.text))
-  //     }
-  //     )
-  //     .filter((job) => {
-  //       notags.map(!notags.includes(job._values.text))
-  //     }
-  //     )
-  //     .filter((job) => {
-  //       locations.map(locations.includes(job._values.location))
-  //     }
-  //     );
-  //   setJobs(filtered);
-  //   console.log("Filtered: " + filtered);
-  // }, [userOptions, yestags, notags, locations]);
 
   return (
     <PaperProvider theme={theme}>
