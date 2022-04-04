@@ -137,10 +137,6 @@ export default function App() {
     }
   };
 
-  const kyllatagit = (job) => {
-    yestags.map((tag) => { });
-  };
-
   // työpaikkojen filtteröinti:
   useEffect(() => {
     const filtered = originaljobs
@@ -151,7 +147,9 @@ export default function App() {
       .filter((job) => {
         if (yestags.length > 0) {
           return yestags.some((tag) => {
-            return job._values.text.indexOf(tag) > -1;
+            return (
+              job._values.text.toLowerCase().indexOf(tag.toLowerCase()) > -1
+            );
           });
         } else {
           return job;
@@ -161,7 +159,9 @@ export default function App() {
       .filter((job) => {
         if (notags.length > 0) {
           return notags.some((tag) => {
-            return job._values.text.indexOf(tag) < 0;
+            return (
+              job._values.text.toLowerCase().indexOf(tag.toLowerCase()) < 0
+            );
           });
         } else {
           return job;
@@ -171,23 +171,29 @@ export default function App() {
       .filter((job) => {
         if (locations.length > 0) {
           return locations.some((tag) => {
-            return job._values.location.indexOf(tag) > - 1;
-          })
+            if (Array.isArray(job._values.location) === true) {
+              // jos array, joinataan pilkulla ja verrataan indexOfilla
+              return (
+                job._values.location
+                  .join(", ")
+                  .toLowerCase()
+                  .indexOf(tag.toLowerCase()) > -1
+              );
+            } else {
+              // jos string, joinia ei tarvita
+              return (
+                job._values.location.toLowerCase().indexOf(tag.toLowerCase()) >
+                -1
+              );
+            }
+          });
         } else {
           return job;
         }
-      })
-      // muuttaa locationit array-muotoon mutta muuten kehitysvaiheessa
-      // .map((job) => {
-      //   if (typeof job._values.location === 'string') {
-      //     return job._values.location.split(", ");
-      //   } else {
-      //     return job._values.location;
-      //   }
-      // })
-      ;
+      });
     setJobs(filtered);
-    console.log("Filtered: " + filtered);
+    // filtteröityjen lkm consoleen, saa poistaa
+    console.log("Filtered: " + filtered.length + "kpl");
   }, [userOptions, yestags, notags, locations]);
 
   useEffect(() => {

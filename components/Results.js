@@ -35,7 +35,7 @@ export default function Results({
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
-  // muunnetaan locationista kaikki array muotoon, tämä yritys myös app.js komponentissa 
+  // muunnetaan locationista kaikki array muotoon, tämä yritys myös app.js komponentissa
   // const locationsToArray =
   //   jobs.map(job => {
   //     if (typeof job._values.location === 'string') {
@@ -56,8 +56,7 @@ export default function Results({
   //   })
   // }
 
-
-  console.log(jobs);
+  //console.log(jobs);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
@@ -81,8 +80,12 @@ export default function Results({
   const renderItem = ({ item }) => (
     <View style={colorthemes.resultStyles.items}>
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
-      <Text style={colorthemes.resultStyles.coname}>{item._values.company}</Text>
-      <Text style={colorthemes.resultStyles.coname}>{item._values.location}</Text>
+      <Text style={colorthemes.resultStyles.coname}>
+        {item._values.company}
+      </Text>
+      <Text style={colorthemes.resultStyles.coname}>
+        {item._values.location}
+      </Text>
       <TouchableOpacity
         styles={colorthemes.resultStyles.button}
         onPress={() => Linking.openURL(`${item._values.url}`)}
@@ -101,14 +104,14 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-      // renderItem={({ item }) => (
-      //   <RenderItem
-      //     item={item}
-      //     yestags={yestags}
-      //     notags={notags}
-      //     locations={locations}
-      //   />
-      // )}
+        // renderItem={({ item }) => (
+        //   <RenderItem
+        //     item={item}
+        //     yestags={yestags}
+        //     notags={notags}
+        //     locations={locations}
+        //   />
+        // )}
       />
     </ScrollView>
   );
