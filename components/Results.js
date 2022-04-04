@@ -95,7 +95,7 @@ export default function Results({
   return (
     <ScrollView style={colorthemes.resultStyles.container}>
       <FlatList
-        data={getResult}
+        data={jobs}
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
         ListHeaderComponent={jobListHeader}
