@@ -172,13 +172,12 @@ export default function App() {
         if (locations.length > 0) {
           return locations.some((tag) => {
             if (Array.isArray(job._values.location) === true) {
-              // jos array, joinataan pilkulla ja verrataan indexOfilla
-              return (
-                job._values.location
-                  .join(", ")
-                  .toLowerCase()
-                  .indexOf(tag.toLowerCase()) > -1
-              );
+              // jos array, joinataan, lowercasetus, splittaus takas arrayksi ja verrataan includesilla
+              return job._values.location
+                .join(", ")
+                .toLowerCase()
+                .split(", ")
+                .includes(tag.toLowerCase());
             } else {
               // jos string, joinia ei tarvita
               return (
