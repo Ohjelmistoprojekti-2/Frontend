@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Image, View, Text } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
+import ReactLoading from "react-loading";
 
 //TÄMÄ LIITTYY NAVIGOINTIIN
 const Tab = createBottomTabNavigator();
@@ -22,6 +23,8 @@ export default function App() {
   const [originaljobs, setOriginaljobs] = useState([]);
   // listan sisältömuuttuja
   const [jobs, setJobs] = useState([]);
+
+  const [loading, setLoading] = useState(true);
 
   // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
   const tyopaikat = [
@@ -61,9 +64,11 @@ export default function App() {
       .then((data) => {
         setJobs(data);
         setOriginaljobs(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -265,23 +270,38 @@ export default function App() {
           />
           <Tab.Screen
             name="Results"
-            children={() => (
-              <Results
-                theme={theme}
-                fetchJobs={fetchJobs}
-                funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
-                muuttujat={{
-                  yesmuuttujat: [yesword, setYesword],
-                  nomuuttujat: [noword, setNoword],
-                  locationmuuttujat: [location, setLocation],
-                  yesarray: [yestags, setYestags],
-                  noarray: [notags, setNotags],
-                  locationsarray: [locations, setLocations],
-                  jobsmuuttujat: [jobs, setJobs],
-                  valintamuuttujat: [userOptions, setUserOptions],
-                }}
-              />
-            )}
+            children={() => {
+              if (loading === false) {
+                return (
+                  <Results
+                    theme={theme}
+                    fetchJobs={fetchJobs}
+                    funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
+                    muuttujat={{
+                      yesmuuttujat: [yesword, setYesword],
+                      nomuuttujat: [noword, setNoword],
+                      locationmuuttujat: [location, setLocation],
+                      yesarray: [yestags, setYestags],
+                      noarray: [notags, setNotags],
+                      locationsarray: [locations, setLocations],
+                      jobsmuuttujat: [jobs, setJobs],
+                      valintamuuttujat: [userOptions, setUserOptions],
+                    }}
+                  />
+                );
+              } else {
+                return (
+                  <View style={{ alignItems: "center", margin: 20 }}>
+                    <ReactLoading
+                      type="spinningBubbles"
+                      color={colorscheme.secondary}
+                      height={50}
+                      width={50}
+                    />
+                  </View>
+                );
+              }
+            }}
             options={{
               title: "Job results",
               headerTitle: (props) => <LogoTitle {...props} />,
