@@ -65,6 +65,7 @@ export default function App() {
         setJobs(data);
         setOriginaljobs(data);
         setLoading(false);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -92,38 +93,7 @@ export default function App() {
         >
           DuuniApp
         </Text>
-        <Text style={{ color: colorscheme.lighttext, fontSize: 25 }}>
-          <Ionicons
-            name="leaf-outline"
-            onPress={() => setColorscheme(colorthemes.browngreen.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="cafe-outline"
-            onPress={() => setColorscheme(colorthemes.orangepurple.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="happy-outline"
-            onPress={() => setColorscheme(colorthemes.yellowblue.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="bug-outline"
-            onPress={() => setColorscheme(colorthemes.redgreen.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="fitness-outline"
-            onPress={() => setColorscheme(colorthemes.coralgrey.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-        </Text>
+        <Text style={{ color: colorscheme.lighttext, fontSize: 25 }}></Text>
       </View>
     );
   }

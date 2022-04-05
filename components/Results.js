@@ -34,6 +34,7 @@ export default function Results({
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
+  const [userOptions, setUserOptions] = muuttujat.valintamuuttujat; // firman nimet
 
   // muunnetaan locationista kaikki array muotoon, tämä yritys myös app.js komponentissa
   // const locationsToArray =
@@ -83,9 +84,39 @@ export default function Results({
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
       </Text>
-      <Text style={colorthemes.resultStyles.coname}>
-        {item._values.location}
-      </Text>
+      {Array.isArray(item._values.location) === true ? (
+        item._values.location.map((location, index) => {
+          return (
+            <Text key={index} style={colorthemes.resultStyles.coname}>
+              {
+                /*
+                  tämä ehdollinen renderöinti kusee toistaiseksi :D:D
+                */
+                // jos locationseja on valittu
+                userOptions.length > 0 &&
+                // jos location lowercasetettuna löytyy valitusta arraysta
+                (userOptions
+                  .join(", ")
+                  .toLowerCase()
+                  .split(", ")
+                  .includes(location.toLowerCase()) ||
+                  // jos location on 'remote work'
+                  location.toLowerCase() == "remote work")
+                  ? // näytä location
+                    location
+                  : userOptions.length == 0
+                  ? location
+                  : ""
+              }
+              {index == item._values.location.length - 1 ? "" : ", "}
+            </Text>
+          );
+        })
+      ) : (
+        <Text style={colorthemes.resultStyles.coname}>
+          {item._values.location}
+        </Text>
+      )}
       <TouchableOpacity
         styles={colorthemes.resultStyles.button}
         onPress={() => Linking.openURL(`${item._values.url}`)}
