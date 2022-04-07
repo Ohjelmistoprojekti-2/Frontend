@@ -14,6 +14,54 @@ const orangepurple = {
   },
 };
 
+// kaikki Home.js muotoilut
+const homeStyles = StyleSheet.create({
+  paragraph: {
+    marginTop: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
+  horizontalform: {
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
+  },
+  fill: {
+    flex: 1,
+    padding: 0,
+    marginHorizontal: "2%",
+    lineHeight: 1,
+  },
+  tagbutton: {
+    padding: 0,
+    fontSize: 12,
+    borderRadius: 15,
+    backgroundColor: orangepurple.colors.secondary,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+    flexDirection: "row",
+    padding: 5,
+  },
+  form: {
+    padding: "2%",
+  },
+  center: {
+    display: "flex",
+    fontSize: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 8,
+  },
+  icon: { marginHorizontal: 5 },
+});
+
 // kaikki results.js muotoilut
 const resultStyles = StyleSheet.create({
   container: {
@@ -50,7 +98,7 @@ const resultStyles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "blue",
+    backgroundColor: "#4e598c",
   },
   buttonText: {
     fontSize: 16,
@@ -63,5 +111,6 @@ const resultStyles = StyleSheet.create({
 
 export const colorthemes = {
   orangepurple,
+  homeStyles,
   resultStyles,
 };

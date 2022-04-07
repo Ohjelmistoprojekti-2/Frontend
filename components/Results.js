@@ -36,29 +36,6 @@ export default function Results({
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
   const [userOptions, setUserOptions] = muuttujat.valintamuuttujat; // firman nimet
 
-  // muunnetaan locationista kaikki array muotoon, tämä yritys myös app.js komponentissa
-  // const locationsToArray =
-  //   jobs.map(job => {
-  //     if (typeof job._values.location === 'string') {
-  //       return job._values.location.split(", ");
-  //     } else {
-  //       return job._values.location;
-  //     };
-  //   })
-
-  // yritys filtteröidä locations results.js komponentissa
-  // const getResult = (locations, jobs) => {
-  //   return jobs.filter(function (obj) {
-  //     return obj.Object.keys(_values).some(function (item) {
-  //       return item.location.some(function (o) {
-  //         return o.indexOf(locations) >= 0;
-  //       })
-  //     })
-  //   })
-  // }
-
-  //console.log(jobs);
-
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
     return <View style={colorthemes.resultStyles.separator} />;
@@ -75,7 +52,7 @@ export default function Results({
 
   // header propsi
   const jobListHeader = () => {
-    return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
+    return <Text style={colorthemes.resultStyles.header}>Your results</Text>
   };
 
   const renderItem = ({ item }) => (
@@ -94,19 +71,19 @@ export default function Results({
                 */
                 // jos locationseja on valittu
                 userOptions.length > 0 &&
-                // jos location lowercasetettuna löytyy valitusta arraysta
-                (userOptions
-                  .join(", ")
-                  .toLowerCase()
-                  .split(", ")
-                  .includes(location.toLowerCase()) ||
-                  // jos location on 'remote work'
-                  location.toLowerCase() == "remote work")
+                  // jos location lowercasetettuna löytyy valitusta arraysta
+                  (userOptions
+                    .join(", ")
+                    .toLowerCase()
+                    .split(", ")
+                    .includes(location.toLowerCase()) ||
+                    // jos location on 'remote work'
+                    location.toLowerCase() == "remote work")
                   ? // näytä location
-                    location
+                  location
                   : userOptions.length == 0
-                  ? location
-                  : ""
+                    ? location
+                    : ""
               }
               {index == item._values.location.length - 1 ? "" : ", "}
             </Text>
@@ -117,12 +94,14 @@ export default function Results({
           {item._values.location}
         </Text>
       )}
-      <TouchableOpacity
-        styles={colorthemes.resultStyles.button}
-        onPress={() => Linking.openURL(`${item._values.url}`)}
-      >
-        <Text style={colorthemes.resultStyles.buttonText}>See more</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          buttonStyle={colorthemes.resultStyles.button}
+          onPress={() => Linking.openURL(`${item._values.url}`)}
+        >
+          <Text style={colorthemes.resultStyles.buttonText}>See more</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -135,15 +114,17 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-        // renderItem={({ item }) => (
-        //   <RenderItem
-        //     item={item}
-        //     yestags={yestags}
-        //     notags={notags}
-        //     locations={locations}
-        //   />
-        // )}
+      // renderItem={({ item }) => (
+      //   <RenderItem
+      //     item={item}
+      //     yestags={yestags}
+      //     notags={notags}
+      //     locations={locations}
+      //   />
+      // )}
       />
     </ScrollView>
   );
 }
+
+// 
