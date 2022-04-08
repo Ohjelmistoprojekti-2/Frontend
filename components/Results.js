@@ -52,7 +52,7 @@ export default function Results({
 
   // header propsi
   const jobListHeader = () => {
-    return <Text style={colorthemes.resultStyles.header}>Your results</Text>
+    return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
   };
 
   const renderItem = ({ item }) => (
@@ -61,39 +61,58 @@ export default function Results({
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
       </Text>
-      {Array.isArray(item._values.location) === true ? (
-        item._values.location.map((location, index) => {
-          return (
-            <Text key={index} style={colorthemes.resultStyles.coname}>
-              {
-                /*
-                  tämä ehdollinen renderöinti kusee toistaiseksi :D:D
-                */
-                // jos locationseja on valittu
-                userOptions.length > 0 &&
-                  // jos location lowercasetettuna löytyy valitusta arraysta
-                  (userOptions
+      {
+        // jos valittuja locationseja on enemmän ku nolla
+        locations.length > 0 ? (
+          <Text>
+            {
+              // jos työpaikan locationsit on arrayna
+              Array.isArray(item._values.location)
+                ? // mappaa object values ja filtteröi vaan ne jotka on valitussa arrayssa tai remote work
+                  Object.values(item._values.location)
+                    .filter((location, index) => {
+                      if (
+                        locations
+                          .join(", ")
+                          .toLowerCase()
+                          .split(", ")
+                          .indexOf(location.toLowerCase()) > -1 ||
+                        location.toLowerCase() == "remote work"
+                      ) {
+                        return location;
+                      }
+                    })
+                    .join(", ") // joinataan array pilkulla tulostusta varten
+                : // jos työpaikan locationsit on stringinä
+                  item._values.location
+                    .split(", ") // splittaa pilkusta ja filtteröi saatu array
+                    .filter((location, index) => {
+                      if (
+                        locations
+                          .join(", ")
+                          .toLowerCase()
+                          .split(", ")
+                          .indexOf(location.toLowerCase()) > -1 ||
+                        location.toLowerCase() == "remote work"
+                      ) {
+                        return location;
+                      }
+                    })
                     .join(", ")
-                    .toLowerCase()
-                    .split(", ")
-                    .includes(location.toLowerCase()) ||
-                    // jos location on 'remote work'
-                    location.toLowerCase() == "remote work")
-                  ? // näytä location
-                  location
-                  : userOptions.length == 0
-                    ? location
-                    : ""
-              }
-              {index == item._values.location.length - 1 ? "" : ", "}
-            </Text>
-          );
-        })
-      ) : (
-        <Text style={colorthemes.resultStyles.coname}>
-          {item._values.location}
-        </Text>
-      )}
+            }
+          </Text>
+        ) : (
+          // jos valittuja locationseja ei ole olemassa, tulostetaan kaikki mitä työpaikalla on:
+          <Text>
+            {
+              // jos locationit on array, joinaa pilkulla ja jos ei niin palauta string sellasenaan
+              Array.isArray(item._values.location)
+                ? item._values.location.join(", ")
+                : item._values.location
+            }
+          </Text>
+        )
+      }
       <View>
         <TouchableOpacity
           buttonStyle={colorthemes.resultStyles.button}
@@ -114,17 +133,17 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-      // renderItem={({ item }) => (
-      //   <RenderItem
-      //     item={item}
-      //     yestags={yestags}
-      //     notags={notags}
-      //     locations={locations}
-      //   />
-      // )}
+        // renderItem={({ item }) => (
+        //   <RenderItem
+        //     item={item}
+        //     yestags={yestags}
+        //     notags={notags}
+        //     locations={locations}
+        //   />
+        // )}
       />
     </ScrollView>
   );
 }
 
-// 
+//
