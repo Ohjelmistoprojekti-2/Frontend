@@ -1,4 +1,4 @@
-// TÄNNE RAKENNETAAN ALUSTAVA NÄKYMÄ, JOSSA TEHDÄÄN VALINNAT
+// näkymä, jossa käyttäjä tekee valinnat
 import React, { useState, useEffect } from "react";
 import { Text, View, Button, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import Radiobutton from "./Radiobutton";

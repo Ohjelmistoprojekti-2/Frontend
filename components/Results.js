@@ -1,6 +1,4 @@
-//TÄNNE LISTATAAN HAKUTULOKSET TYÖPAIKOISTA
-// NÄKYMÄSSÄ TÄLLÄ HETKELLÄ KAIKKI JOBS.JSONISSA OLEVAT TYÖPAIKKATIEDOT
-// EI YHDISTETTY HOME KOPMPONENTTIIN
+// listanäkymä hakutuloksista
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -9,12 +7,9 @@ import {
   Linking,
   TouchableOpacity,
   ScrollView,
+  Button
 } from "react-native";
 import * as Colorthemes from "./styles";
-// import RenderItem from "./RenderItem";
-
-// "Data" voi olla mikään vaan itsenimetty, jolla vitataan json-tiedostoon
-// import Data from "./jobs.json";
 
 export default function Results({
   route,
@@ -26,17 +21,14 @@ export default function Results({
 }) {
   const colorthemes = Colorthemes.colorthemes;
 
-  // dummydata-haamu:
-  // const jobs = Data;
-
   // muuttujat app.js:stä
-  const [jobs, setJobs] = muuttujat.jobsmuuttujat;
+  const [jobs, setJobs] = muuttujat.jobsmuuttujat; // filtteröity työpaikka-array
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
   const [userOptions, setUserOptions] = muuttujat.valintamuuttujat; // firman nimet
 
-  console.log(jobs);
+  // console.log(jobs);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
   const listSeparator = () => {
@@ -73,46 +65,46 @@ export default function Results({
                 // jos työpaikan locationsit on arrayna
                 Array.isArray(item._values.location)
                   ? // mappaa object values ja filtteröi vaan ne jotka on valitussa arrayssa tai remote work
-                    Object.values(item._values.location)
-                      .filter((location, index) => {
-                        if (
-                          locations
-                            .join(", ")
-                            .toLowerCase()
-                            .split(", ")
-                            .indexOf(location.toLowerCase()) > -1 ||
-                          location.toLowerCase() == "remote work"
-                        ) {
-                          return location;
-                        } else {
-                          others++;
-                        }
-                      })
-                      .join(", ") // joinataan array pilkulla tulostusta varten
+                  Object.values(item._values.location)
+                    .filter((location, index) => {
+                      if (
+                        locations
+                          .join(", ")
+                          .toLowerCase()
+                          .split(", ")
+                          .indexOf(location.toLowerCase()) > -1 ||
+                        location.toLowerCase() == "remote work"
+                      ) {
+                        return location;
+                      } else {
+                        others++;
+                      }
+                    })
+                    .join(", ") // joinataan array pilkulla tulostusta varten
                   : // jos työpaikan locationsit on stringinä
-                    item._values.location
-                      .split(", ") // splittaa pilkusta ja filtteröi saatu array
-                      .filter((location, index) => {
-                        if (
-                          locations
-                            .join(", ")
-                            .toLowerCase()
-                            .split(", ")
-                            .indexOf(location.toLowerCase()) > -1 ||
-                          location.toLowerCase() == "remote work"
-                        ) {
-                          return location;
-                        } else {
-                          others++;
-                        }
-                      })
-                      .join(", ")
+                  item._values.location
+                    .split(", ") // splittaa pilkusta ja filtteröi saatu array
+                    .filter((location, index) => {
+                      if (
+                        locations
+                          .join(", ")
+                          .toLowerCase()
+                          .split(", ")
+                          .indexOf(location.toLowerCase()) > -1 ||
+                        location.toLowerCase() == "remote work"
+                      ) {
+                        return location;
+                      } else {
+                        others++;
+                      }
+                    })
+                    .join(", ")
               }
               {others == 1
                 ? " + " + others + " other"
                 : others > 0
-                ? " + " + others + " others"
-                : null}
+                  ? " + " + others + " others"
+                  : null}
             </Text>
           ) : (
             // jos valittuja locationseja ei ole olemassa, tulostetaan kaikki mitä työpaikalla on:
@@ -147,17 +139,8 @@ export default function Results({
         ListHeaderComponent={jobListHeader}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-        // renderItem={({ item }) => (
-        //   <RenderItem
-        //     item={item}
-        //     yestags={yestags}
-        //     notags={notags}
-        //     locations={locations}
-        //   />
-        // )}
       />
     </ScrollView>
   );
 }
 
-//

@@ -9,7 +9,7 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
 import ReactLoading from "react-loading";
 
-//TÄMÄ LIITTYY NAVIGOINTIIN
+// tämä liittyy navigointiin
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -26,9 +26,8 @@ export default function App() {
 
   const [loading, setLoading] = useState(true);
 
-  // TÄHÄN DATAAN TULISI TYÖPAIKAN TIEDOT: HEADER, COMPANY,URL
+  // yritysten nimet checkboxissa
   const tyopaikat = [
-    "Tietoevry",
     "Reaktor",
     "Visma",
     "Futurice",
