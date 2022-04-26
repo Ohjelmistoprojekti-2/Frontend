@@ -266,6 +266,7 @@ export default function App() {
                       color={colorscheme.secondary}
                       height={50}
                       width={50}
+                      testID="loading"
                     />
                   </View>
                 );
