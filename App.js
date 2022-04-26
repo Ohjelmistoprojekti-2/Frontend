@@ -27,12 +27,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   // yritysten nimet checkboxissa
-  const tyopaikat = [
-    "Reaktor",
-    "Visma",
-    "Futurice",
-    "Siili Solutions",
-  ];
+  const tyopaikat = ["Reaktor", "Visma", "Futurice", "Siili Solutions"];
 
   // tilamuuttujat joita home.js:ssä muokataan
   const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
@@ -112,35 +107,31 @@ export default function App() {
   };
 
   // palauttaa valitut yritykset checkboxeista, käytetään useEffectissä
-  const coJobs = (job) =>
-    userOptions.includes(job._values.company)
-
+  const coJobs = (job) => userOptions.includes(job._values.company);
 
   // palauttaa työpaikat, jotka sisältävät hakusanat/keywords, käytetään useEffectissä
   const yesTags = (job) => {
     if (yestags.length > 0) {
       return yestags.some((tag) => {
-        return (
-          job._values.text.toLowerCase().includes(tag.toLowerCase())
-        );
+        return job._values.text.toLowerCase().includes(tag.toLowerCase());
       });
     } else {
       return job;
     }
-  }
+  };
 
   // palauttaa työpaikat, jotka EIVÄT sisällä lisättyä keywordia, käytetään useEffectissä
   const noTags = (job) => {
     if (notags.length > 0) {
       return notags.some((tag) => {
         return (
-          job._values.text.toLowerCase().indexOf(tag.toLowerCase()) < 0
+          job._values.text.toLowerCase().includes(tag.toLowerCase()) === false
         );
       });
     } else {
       return job;
     }
-  }
+  };
 
   // palauttaa työpaikat, jotka sisältävät syötetyt paikkakunnat, käytetään useEffectissä
   const jobLocations = (job) => {
@@ -148,23 +139,23 @@ export default function App() {
       return locations.some((tag) => {
         // jos location on array (esim. Visma)
         if (Array.isArray(job._values.location) === true) {
-          return job._values.location.some(loc =>
-            loc.toLowerCase() === tag.toLowerCase())
+          return job._values.location.some(
+            (loc) => loc.toLowerCase() === tag.toLowerCase()
+          );
         } else {
           // jos location on string (esim. Reaktor)
-          return (
-            job._values.location.toLowerCase().includes(tag.toLowerCase())
-          );
+          return job._values.location.toLowerCase().includes(tag.toLowerCase());
         }
       });
     } else {
       return job;
     }
-  }
+  };
 
   // työpaikkojen filtteröinti:
   useEffect(() => {
     const filtered = originaljobs
+      // yritykset
       .filter(coJobs)
       // yestags
       .filter(yesTags)
