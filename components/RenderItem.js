@@ -24,10 +24,14 @@ export default function RenderItem({ item, yestags, notags, locations }) {
   //// -yestags-tageista jokin tai useampi löytyy tekstistä
   //// - tekstistä ei löydy yhtään notags-tagia
 
-
   // jos item on selvinnyt seulasta
   return (
-    <View style={[colorthemes.resultStyles.items, { display: naytetaan ? 'flex' : 'none' }]}>
+    <View
+      style={[
+        colorthemes.resultStyles.items,
+        { display: naytetaan ? "block" : "none" },
+      ]}
+    >
       <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
       <Text style={colorthemes.resultStyles.coname}>
         {item._values.company}
@@ -40,5 +44,4 @@ export default function RenderItem({ item, yestags, notags, locations }) {
       </TouchableOpacity>
     </View>
   );
-
 }
