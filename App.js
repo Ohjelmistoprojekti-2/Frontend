@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./components/Home";
@@ -7,12 +7,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Image, View, Text } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
-import 'dotenv/config'
+import ReactLoading from "react-loading";
 
-//liittyy .env tiedoston käyttöön
-require('dotenv').config()
-
-//TÄMÄ LIITTYY NAVIGOINTIIN
+// tämä liittyy navigointiin
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -23,8 +20,25 @@ export default function App() {
     colorthemes.orangepurple.colors
   );
 
-    // listan sisältömuuttuja
-    const [jobs, setJobs] = useState([]);
+  const [originaljobs, setOriginaljobs] = useState([]);
+  // listan sisältömuuttuja
+  const [jobs, setJobs] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  // yritysten nimet checkboxissa
+  const tyopaikat = ["Reaktor", "Visma", "Futurice", "Siili Solutions"];
+
+  // tilamuuttujat joita home.js:ssä muokataan
+  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
+  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
+  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+
+  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
+  const [notags, setNotags] = useState([]); // kaikki ei-tagit
+  const [locations, setLocations] = useState([]); // halutut sijainnit
+
+  const [userOptions, setUserOptions] = useState(tyopaikat); // valitut työpaikat
 
   const theme = {
     ...DefaultTheme,
@@ -33,18 +47,23 @@ export default function App() {
     colors: colorscheme,
   };
 
-  // fetchfunktio results-komponentille  https://tyonhakuappi.herokuapp.com/api/tyopaikat    process.env.SECRET_API_KEY
   const fetchJobs = () => {
-    fetch("http://127.0.0.1:5000/api/tyopaikat",{
-      method: 'GET',
+    fetch(`${process.env.REACT_APP_BACKEND_URL}`, {
+      method: "GET",
       headers: {
-        'API-KEY':'6cc1d83f-0e10-4906-a5e1-1f6016f093bc'
-      }
+        "API-KEY": `${process.env.REACT_APP_BACKEND_API_KEY}`,
+      },
     })
       .then((response) => response.json())
-      .then((data) => setJobs(data))
+      .then((data) => {
+        setJobs(data);
+        setOriginaljobs(data);
+        setLoading(false);
+        console.log(data);
+      })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -68,38 +87,7 @@ export default function App() {
         >
           DuuniApp
         </Text>
-        <Text style={{ color: colorscheme.lighttext, fontSize: 25 }}>
-          <Ionicons
-            name="leaf-outline"
-            onPress={() => setColorscheme(colorthemes.browngreen.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="cafe-outline"
-            onPress={() => setColorscheme(colorthemes.orangepurple.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="happy-outline"
-            onPress={() => setColorscheme(colorthemes.yellowblue.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="bug-outline"
-            onPress={() => setColorscheme(colorthemes.redgreen.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-          <Ionicons
-            name="fitness-outline"
-            onPress={() => setColorscheme(colorthemes.coralgrey.colors)}
-            style={{ marginHorizontal: 5 }}
-            size={30}
-          />
-        </Text>
+        <Text style={{ color: colorscheme.lighttext, fontSize: 25 }}></Text>
       </View>
     );
   }
@@ -118,14 +106,72 @@ export default function App() {
     }
   };
 
-  // tilamuuttujat joita home.js:ssä muokataan
-  const [yesword, setYesword] = useState(""); // kyllä-tagin muistipaikka
-  const [noword, setNoword] = useState(""); // ei-tagin muistipaikka
-  const [location, setLocation] = useState(""); //sijainnin muistipaikka
+  // palauttaa valitut yritykset checkboxeista, käytetään useEffectissä
+  const coJobs = (job) => userOptions.includes(job._values.company);
 
-  const [yestags, setYestags] = useState([]); // kaikki kyllä-tagit
-  const [notags, setNotags] = useState([]); // kaikki ei-tagit
-  const [locations, setLocations] = useState([]); // halutut sijainnit
+  // palauttaa työpaikat, jotka sisältävät hakusanat/keywords, käytetään useEffectissä
+  const yesTags = (job) => {
+    if (yestags.length > 0) {
+      return yestags.some((tag) => {
+        return job._values.text.toLowerCase().includes(tag.toLowerCase());
+      });
+    } else {
+      return job;
+    }
+  };
+
+  // palauttaa työpaikat, jotka EIVÄT sisällä lisättyä keywordia, käytetään useEffectissä
+  const noTags = (job) => {
+    if (notags.length > 0) {
+      return notags.some((tag) => {
+        return (
+          job._values.text.toLowerCase().includes(tag.toLowerCase()) === false
+        );
+      });
+    } else {
+      return job;
+    }
+  };
+
+  // palauttaa työpaikat, jotka sisältävät syötetyt paikkakunnat, käytetään useEffectissä
+  const jobLocations = (job) => {
+    if (locations.length > 0) {
+      return locations.some((tag) => {
+        // jos location on array (esim. Visma)
+        if (Array.isArray(job._values.location) === true) {
+          return job._values.location.some(
+            (loc) => loc.toLowerCase() === tag.toLowerCase()
+          );
+        } else {
+          // jos location on string (esim. Reaktor)
+          return job._values.location.toLowerCase().includes(tag.toLowerCase());
+        }
+      });
+    } else {
+      return job;
+    }
+  };
+
+  // työpaikkojen filtteröinti:
+  useEffect(() => {
+    const filtered = originaljobs
+      // yritykset
+      .filter(coJobs)
+      // yestags
+      .filter(yesTags)
+      // notags
+      .filter(noTags)
+      // locations
+      .filter(jobLocations);
+
+    setJobs(filtered);
+    // filtteröityjen lkm consoleen, saa poistaa
+    console.log("Filtered: " + filtered.length + "kpl");
+  }, [userOptions, yestags, notags, locations]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   return (
     <PaperProvider theme={theme}>
@@ -177,6 +223,8 @@ export default function App() {
                   yesarray: [yestags, setYestags],
                   noarray: [notags, setNotags],
                   locationsarray: [locations, setLocations],
+                  valintamuuttujat: [userOptions, setUserOptions],
+                  tyopaikat: tyopaikat,
                 }}
               />
             )}
@@ -191,22 +239,38 @@ export default function App() {
           />
           <Tab.Screen
             name="Results"
-            children={() => (
-              <Results
-                theme={theme}
-                fetchJobs={fetchJobs}
-                funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
-                muuttujat={{
-                  yesmuuttujat: [yesword, setYesword],
-                  nomuuttujat: [noword, setNoword],
-                  locationmuuttujat: [location, setLocation],
-                  yesarray: [yestags, setYestags],
-                  noarray: [notags, setNotags],
-                  locationsarray: [locations, setLocations],
-                  jobsmuuttujat: [jobs, setJobs]
-                }}
-              />
-            )}
+            children={() => {
+              if (loading === false) {
+                return (
+                  <Results
+                    theme={theme}
+                    fetchJobs={fetchJobs}
+                    funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
+                    muuttujat={{
+                      yesmuuttujat: [yesword, setYesword],
+                      nomuuttujat: [noword, setNoword],
+                      locationmuuttujat: [location, setLocation],
+                      yesarray: [yestags, setYestags],
+                      noarray: [notags, setNotags],
+                      locationsarray: [locations, setLocations],
+                      jobsmuuttujat: [jobs, setJobs],
+                      valintamuuttujat: [userOptions, setUserOptions],
+                    }}
+                  />
+                );
+              } else {
+                return (
+                  <View style={{ alignItems: "center", margin: 20 }}>
+                    <ReactLoading
+                      type="spinningBubbles"
+                      color={colorscheme.secondary}
+                      height={50}
+                      width={50}
+                    />
+                  </View>
+                );
+              }
+            }}
             options={{
               title: "Job results",
               headerTitle: (props) => <LogoTitle {...props} />,
@@ -221,3 +285,8 @@ export default function App() {
     </PaperProvider>
   );
 }
+
+// .join(", ")
+//   .toLowerCase()
+//   .split(", ")
+//   .includes(tag.toLowerCase());
