@@ -1,19 +1,6 @@
 import { StyleSheet } from "react-native";
 // TÄNNE VOI TARVITTAESSA LUODA TYYLEJÄ
 
-const browngreen = {
-  colors: {
-    primary: "#2c6e49",
-    secondary: "#ffc9b9",
-    background: "#f2f2f2",
-    card: "#4c956c",
-    accent: "#d68c45",
-    text: "#000",
-    lighttext: "#fefee3",
-    dullnavtext: "#72ac8b",
-  },
-};
-
 const orangepurple = {
   colors: {
     primary: "#4e598c",
@@ -27,44 +14,53 @@ const orangepurple = {
   },
 };
 
-const yellowblue = {
-  colors: {
-    primary: "#11296b",
-    secondary: "#ffdb57",
-    background: "#ededed",
-    card: "#ffcb05",
-    accent: "#00509d",
-    text: "#000",
-    lighttext: "#fff",
-    dullnavtext: "#ededed",
+// kaikki Home.js muotoilut
+const homeStyles = StyleSheet.create({
+  paragraph: {
+    marginTop: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
   },
-};
-
-const redgreen = {
-  colors: {
-    primary: "#386641",
-    secondary: "#a7c957",
-    background: "#ededed",
-    card: "#bc4749",
-    accent: "#a7c957",
-    text: "#000",
-    lighttext: "#fff",
-    dullnavtext: "#6a994e",
+  horizontal: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
   },
-};
-
-const coralgrey = {
-  colors: {
-    primary: "#102542",
-    secondary: "#f87060",
-    background: "#ededed",
-    card: "#102542",
-    accent: "#b3a394",
-    text: "#000",
-    lighttext: "#fff",
-    dullnavtext: "#cdd7d6",
+  horizontalform: {
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
   },
-};
+  fill: {
+    flex: 1,
+    padding: 0,
+    marginHorizontal: "2%",
+    lineHeight: 1,
+  },
+  tagbutton: {
+    padding: 0,
+    fontSize: 12,
+    borderRadius: 15,
+    backgroundColor: orangepurple.colors.secondary,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+    flexDirection: "row",
+    padding: 5,
+  },
+  form: {
+    padding: "2%",
+  },
+  center: {
+    display: "flex",
+    fontSize: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 8,
+  },
+  icon: { marginHorizontal: 5 },
+});
 
 // kaikki results.js muotoilut
 const resultStyles = StyleSheet.create({
@@ -102,7 +98,7 @@ const resultStyles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "blue",
+    backgroundColor: "#4e598c",
   },
   buttonText: {
     fontSize: 16,
@@ -114,10 +110,7 @@ const resultStyles = StyleSheet.create({
 });
 
 export const colorthemes = {
-  browngreen,
   orangepurple,
-  yellowblue,
-  redgreen,
-  coralgrey,
+  homeStyles,
   resultStyles,
 };

@@ -4,10 +4,12 @@ import { View, Text } from "react-native";
 import { Checkbox } from "react-native-paper";
 
 // PROPSINA HOME KOMPONENTISTA DATA ARRAYN VAIHTOEHDOT JA ONSELECT JOS KÄYTTÄJÄ TEKEE VALINNAN
-export default function Radiobutton({ data, styles }) {
-  const [userOption, setUserOption] = useState([]);
+export default function Radiobutton({ tyopaikat, styles, valintamuuttujat }) {
+  const [userOption, setUserOption] = valintamuuttujat;
   // luodaan data-arrayn verran false-stateja:
-  const [checked, setChecked] = useState(new Array(data.length).fill(true));
+  const [checked, setChecked] = useState(
+    new Array(tyopaikat.length).fill(true)
+  );
 
   // SELECTHANDLER AJAA ONSELECTIN SEKÄ CHECKAA + PÄIVITTÄÄ KÄYTTÄJÄN VALINNAN
   const selectHandler = (value, position) => {
@@ -30,7 +32,7 @@ export default function Radiobutton({ data, styles }) {
   };
   return (
     <View style={styles.horizontal}>
-      {data.map((item, index) => {
+      {tyopaikat.map((item, index) => {
         return (
           <View
             key={index}
@@ -44,13 +46,13 @@ export default function Radiobutton({ data, styles }) {
             }}
           >
             <Checkbox.Android
-              value={item.value}
+              value={item}
               // EHTO, JOSSA TARKASTETAAN, ONKO KÄYTTÄJÄN VALINTA SAMA KUIN JOKU BUTTONIN ARVOISTA
               status={checked[index] === true ? "checked" : "unchecked"}
               // ONPRESS AJAA SELECTHANDLER METODIN
-              onPress={() => selectHandler(item.value, index)}
+              onPress={() => selectHandler(item, index)}
             />
-            <Text>{item.value}</Text>
+            <Text>{item}</Text>
           </View>
         );
       })}
