@@ -16,6 +16,7 @@ it("loads jobs from backend api", () => {
     .and("have.length.gt", 5)
     .then((jobs) => {
       cy.contains("Job results").click();
+      cy.wait(5000); // wait 5 seconds for gh actions being so slow
       cy.get("[data-testid=job]").should("have.length", jobs.length);
     });
 });
