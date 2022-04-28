@@ -156,16 +156,15 @@ export default function App() {
   // työpaikkojen filtteröinti:
   useEffect(() => {
     const filtered1 = coJobs(originaljobs, userOptions)
-    // yestags
+    setJobs(filtered1)
     const filtered2 = yesTags(filtered1, yestags)
-    // notags
+    setJobs(filtered2)
     const filtered3 = noTags(filtered2, notags)
-    // locations
+    setJobs(filtered3)
     const filtered4 = jobLocations(filtered3, locations);
-
     setJobs(filtered4);
     // filtteröityjen lkm consoleen, saa poistaa
-    console.log("Filtered: " + filtered.length + "kpl");
+    console.log("Filtered: " + filtered4.length + "kpl");
   }, [userOptions, yestags, notags, locations]);
 
   useEffect(() => {
