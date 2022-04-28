@@ -260,7 +260,10 @@ export default function App() {
                 );
               } else {
                 return (
-                  <View style={{ alignItems: "center", margin: 20 }}>
+                  <View
+                    style={{ alignItems: "center", margin: 20 }}
+                    testID="loading"
+                  >
                     <ReactLoading
                       type="spinningBubbles"
                       color={colorscheme.secondary}
