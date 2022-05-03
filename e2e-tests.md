@@ -11,7 +11,8 @@
     - [3.3 GitHub Actions -workflown luominen](#33-github-actions--workflown-luominen)
       - [3.3.1 Ympäristömuuttujat](#331-ympäristömuuttujat)
       - [3.3.2 Testien muokkaaminen GitHub Actionsia varten](#332-testien-muokkaaminen-github-actionsia-varten)
- 4. [Pohdinta](#4-pohdinta)
+    - [3.4 Kattavuusraportti](#34-kattavuusraportti)
+ 4. [Tulokset ja pohdinta](#4-tulokset-ja-pohdinta)
 
 ## 1. Johdanto
 Ohjelmistoprojekti II -kurssilla olimme toteuttaneet ryhmätyönä [React Native -sovelluksen](https://github.com/Ohjelmistoprojekti-2) (työnimi DuuniApp), joka oli saatu sen verran pitkälle, että sovelluksen testaaminen tuli ajankohtaiseksi. Sen vuoksi testaamisen valitseminen seminaariaiheeksi tuntui luontevalta.
@@ -116,7 +117,7 @@ it("loads jobs from backend api", () => {
 });
 ```
 
-### 3.3 Kattavuusraportti
+### 3.4 Kattavuusraportti
 Samaisessa tutoriaalissa käsiteltiin myös _code coveragea_, eli testien kattavuutta, ja miten se saadaan selville Cypressillä tehtävässä e2e-testauksessa. Lueskelin myös Cypressin [dokumentaatiota aiheesta](https://docs.cypress.io/guides/tooling/code-coverage#Using-code-transpilation-pipeline). 
 
 Lähestymistapana käytin `babel-plugin-istanbul`ia, jonka asensin devDependenceihin. Lisäksi minun täytyi asentaa `@cypress/code-coverage`-plugin.
