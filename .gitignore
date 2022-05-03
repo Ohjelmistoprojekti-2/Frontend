@@ -18,3 +18,5 @@ web-build/
 # cypress test logs etc.
 coverage/
 .nyc_output/
+cypress/screenshots
+cypress/videos
