@@ -5,7 +5,7 @@
             "ala": "Design",
             "location": "Amsterdam",
             "company": "Reaktor",
-            "text": "This is a text containing the word Frontend",
+            "text": "This is a text containing words Frontend and DevOps",
             "url": "https://www.reaktor.com/careers/senior-digital-designer/"
         }
     },
@@ -14,8 +14,7 @@
             "header": "Software Developer",
             "ala": "Software development",
             "location": [
-                "Helsinki",
-                "Jyv\u00e4skyl\u00e4",
+                "Jyväskylä",
                 "Tampere",
                 "Vaasa"
             ],
@@ -43,7 +42,6 @@
             "header": "Cloud Architect \u2192",
             "ala": "Tech",
             "location": [
-                "Helsinki",
                 "Oulu",
                 "Remote work"
             ],
@@ -58,7 +56,7 @@
             "ala": "Technology",
             "location": "Espoo, Remote work",
             "company": "Futurice",
-            "text": " This is a tex containing words DevOps, TypeScript, Clojure and Kotlin",
+            "text": " This is a tex containing words DevOps, TypeScript, Azure and Kotlin",
             "url": "https://www.reaktor.com/careers/functional-programmer-6056265002/"
         }
     }
