@@ -182,3 +182,5 @@ Työtä auttoi myös se, että Cypressin syntaksi oli mielestäni helppolukuista
 Kokonaisuudessaan opin Cypressistä ja e2e-tyyppisestä järjestelmätestaamisesta mielestäni ihan mukavasti. Cypress tuntui työkaluna toimivalta ja aion ehdottomasti käyttää sitä tulevissa projekteissani. Pidin myös paljon graafisesta kattavuusraportista ja itse Cypressin testiohjelman käyttöliittymästä.
 
 Seminaarityö jätti myös paljon lisäopiskelun varaa, sillä kuten mainittu, Cypress on loistava työkalu myös esimerkiksi yksikkötestaamiseeen (jonka puutteesta kattavuusraporttini keltaiset kohdat johtuivat). Minusta olisikin tulevaisuudessa kiinnostavaa toteuttaa kattavat yksikkö-, integraatio- ja järjestelmätestit johonkin sovellukseen Cypressiä käyttäen.
+
+_Seminaarityön esittelyvideo löytyy Microsoft Stream -palvelusta [tästä linkistä](https://web.microsoftstream.com/video/83dc5559-49b0-474b-94b5-0becf337c02e), ja se näkyy vain valtuutetuille käyttäjille._
