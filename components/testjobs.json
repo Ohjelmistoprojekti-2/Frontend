@@ -39,7 +39,7 @@
     },
     {
         "_values": {
-            "header": "Cloud Architect \u2192",
+            "header": "Cloud Architect",
             "ala": "Tech",
             "location": [
                 "Oulu",
@@ -56,7 +56,7 @@
             "ala": "Technology",
             "location": "Espoo, Remote work",
             "company": "Futurice",
-            "text": " This is a tex containing words DevOps, TypeScript, Azure and Kotlin",
+            "text": " This is a text containing words DevOps, TypeScript, Azure and Kotlin",
             "url": "https://www.reaktor.com/careers/functional-programmer-6056265002/"
         }
     }

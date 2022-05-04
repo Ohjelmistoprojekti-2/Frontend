@@ -107,52 +107,6 @@ export default function App() {
     }
   };
 
-  // // palauttaa valitut yritykset checkboxeista, käytetään useEffectissä
-  // const coJobs = (job) => userOptions.includes(job._values.company);
-
-  // // palauttaa työpaikat, jotka sisältävät hakusanat/keywords, käytetään useEffectissä
-  // const yesTags = (job) => {
-  //   if (yestags.length > 0) {
-  //     return yestags.some((tag) => {
-  //       return job._values.text.toLowerCase().includes(tag.toLowerCase());
-  //     });
-  //   } else {
-  //     return job;
-  //   }
-  // };
-
-  // // palauttaa työpaikat, jotka EIVÄT sisällä lisättyä keywordia, käytetään useEffectissä
-  // const noTags = (job) => {
-  //   if (notags.length > 0) {
-  //     return notags.some((tag) => {
-  //       return (
-  //         job._values.text.toLowerCase().includes(tag.toLowerCase()) === false
-  //       );
-  //     });
-  //   } else {
-  //     return job;
-  //   }
-  // };
-
-  // // palauttaa työpaikat, jotka sisältävät syötetyt paikkakunnat, käytetään useEffectissä
-  // const jobLocations = (job) => {
-  //   if (locations.length > 0) {
-  //     return locations.some((tag) => {
-  //       // jos location on array (esim. Visma)
-  //       if (Array.isArray(job._values.location) === true) {
-  //         return job._values.location.some(
-  //           (loc) => loc.toLowerCase() === tag.toLowerCase()
-  //         );
-  //       } else {
-  //         // jos location on string (esim. Reaktor)
-  //         return job._values.location.toLowerCase().includes(tag.toLowerCase());
-  //       }
-  //     });
-  //   } else {
-  //     return job;
-  //   }
-  // };
-
   // työpaikkojen filtteröinti:
   useEffect(() => {
     const filtered1 = coJobs(originaljobs, userOptions)

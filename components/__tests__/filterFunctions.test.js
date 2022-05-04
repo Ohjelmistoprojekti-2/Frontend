@@ -32,7 +32,7 @@ const locations = [
     'Jyväskylä'
 ]
 
-// rivien 35-71 tapaukset testaavat, että funktio filtteröi ja palauttaa oikeanpituiset arrayt
+// rivien 37-71 tapaukset testaavat, että funktio filtteröi ja palauttaa oikeanpituiset arrayt
 
 // palauttaa arrayn, jossa valitut yritykset
 describe('coJobs function returns an array of two objects', () => {
@@ -70,7 +70,7 @@ describe('jobLocations function returns an array of three objects', () => {
 
 })
 
-// rivien 73-114 tapaukset testaavat, että funktiot palauttavat arrayn, jotkä sisältävät täsmälleen oikeanlaiset objektit
+// rivien 73-119 tapaukset testaavat, että funktiot palauttavat arrayn, jotkä sisältävät täsmälleen oikeanlaiset objektit
 describe('function returns an array of jobs that contains only company names of Reaktor and Visma', () => {
     test('the received array matches with the expected one', () => {
         expect(coJobs(jobs, userOptions)).toEqual(
