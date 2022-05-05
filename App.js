@@ -8,7 +8,12 @@ import { Image, View, Text } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
 import ReactLoading from "react-loading";
-import { coJobs, yesTags, noTags, jobLocations } from './components/filterFunctions';
+import {
+  coJobs,
+  yesTags,
+  noTags,
+  jobLocations,
+} from "./components/filterFunctions";
 
 // tämä liittyy navigointiin
 const Tab = createBottomTabNavigator();
@@ -107,14 +112,21 @@ export default function App() {
     }
   };
 
+  const tyhjennaKaikki = () => {
+    setLocations([]);
+    setNotags([]);
+    setYestags([]);
+    setUserOptions(tyopaikat);
+  };
+
   // työpaikkojen filtteröinti:
   useEffect(() => {
-    const filtered1 = coJobs(originaljobs, userOptions)
-    setJobs(filtered1)
-    const filtered2 = yesTags(filtered1, yestags)
-    setJobs(filtered2)
-    const filtered3 = noTags(filtered2, notags)
-    setJobs(filtered3)
+    const filtered1 = coJobs(originaljobs, userOptions);
+    setJobs(filtered1);
+    const filtered2 = yesTags(filtered1, yestags);
+    setJobs(filtered2);
+    const filtered3 = noTags(filtered2, notags);
+    setJobs(filtered3);
     const filtered4 = jobLocations(filtered3, locations);
     setJobs(filtered4);
     // filtteröityjen lkm consoleen, saa poistaa
@@ -167,7 +179,11 @@ export default function App() {
             children={() => (
               <Home
                 theme={theme}
-                funktiot={{ lisaatagi: lisaatagi, poistatagi: poistatagi }}
+                funktiot={{
+                  lisaatagi: lisaatagi,
+                  poistatagi: poistatagi,
+                  tyhjennaKaikki: tyhjennaKaikki,
+                }}
                 muuttujat={{
                   yesmuuttujat: [yesword, setYesword],
                   nomuuttujat: [noword, setNoword],

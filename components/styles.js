@@ -105,6 +105,10 @@ const resultStyles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
   },
+  buttonText: {
+    fontWeight: "bold",
+    color: orangepurple.colors.accent,
+  },
 });
 
 export const colorthemes = {

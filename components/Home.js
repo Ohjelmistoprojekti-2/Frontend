@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from "react-native";
 import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
@@ -28,6 +29,7 @@ export default function Home({
   // funktiot ja muuttujat app.js:stä propsina
   const lisaatagi = funktiot.lisaatagi;
   const poistatagi = funktiot.poistatagi;
+  const tyhjennaKaikki = funktiot.tyhjennaKaikki;
 
   const tyopaikkaarray = muuttujat.tyopaikat;
 
@@ -49,13 +51,6 @@ export default function Home({
     await SecureStore.setItemAsync("locations", JSON.stringify(locations));
     await SecureStore.setItemAsync("userOptions", JSON.stringify(userOptions));
   }
-
-  const clearAllOptions = () => {
-    setLocations([]);
-    setNotags([]);
-    setYestags([]);
-    setUserOptions([tyopaikat]);
-  };
 
   async function getValueFor() {
     let yestags = await SecureStore.getItemAsync("yestags");
@@ -174,24 +169,32 @@ export default function Home({
         <Tags data={locations} setLitania={setLocations} />
       </View>
       <View style={colorthemes.homeStyles.buttonView}>
-        <CustomButton
-          bgcolor={Colorthemes.colorthemes.orangepurple.colors.dullnavtext}
-          fontcolor="#fff"
-          text="Save search options"
-          onPress={testfunc}
-        />
-        <CustomButton
-          bgcolor="transparent"
-          fontcolor={Colorthemes.colorthemes.orangepurple.colors.dullnavtext}
-          text="Use saved options"
-          onPress={getValueFor}
-          outlined
-        />
+        {Platform.OS != "web" ? (
+          <>
+            <CustomButton
+              bgcolor={Colorthemes.colorthemes.orangepurple.colors.dullnavtext}
+              fontcolor="#fff"
+              text="Save search options"
+              onPress={testfunc}
+            />
+            <CustomButton
+              bgcolor="transparent"
+              fontcolor={
+                Colorthemes.colorthemes.orangepurple.colors.dullnavtext
+              }
+              text="Use saved options"
+              onPress={getValueFor}
+              outlined
+            />
+          </>
+        ) : (
+          <></>
+        )}
         <CustomButton
           bgcolor="transparent"
           fontcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
           text="Clear all options"
-          onPress={clearAllOptions}
+          onPress={tyhjennaKaikki}
         />
       </View>
     </ScrollView>
