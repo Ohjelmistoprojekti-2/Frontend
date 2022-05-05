@@ -12,6 +12,7 @@ import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Colorthemes from "./styles";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Home({
   route,
@@ -33,11 +34,31 @@ export default function Home({
   const [noword, setNoword] = muuttujat.nomuuttujat; // ei-tagin muistipaikka
   const [location, setLocation] = muuttujat.locationmuuttujat; //sijainnin muistipaikka
 
+  const allTags = []
+
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
 
   const [userOptions, setUserOptions] = muuttujat.valintamuuttujat;
+
+  async function testfunc(){
+      await SecureStore.setItemAsync("yestags", JSON.stringify(yestags));
+      await SecureStore.setItemAsync("notags", JSON.stringify(notags));
+      await SecureStore.setItemAsync("locations", JSON.stringify(locations));
+      await SecureStore.setItemAsync("userOptions", JSON.stringify(userOptions));
+  }
+
+  async function getValueFor() {
+    let yestags = await SecureStore.getItemAsync("yestags");
+    let notags = await SecureStore.getItemAsync("notags");
+    let locations = await SecureStore.getItemAsync("locations");
+    let userOptions = await SecureStore.getItemAsync("userOptions");
+      setYestags(JSON.parse(yestags));
+      setNotags(JSON.parse(notags));
+      setLocations(JSON.parse(locations));
+      setUserOptions(JSON.parse(userOptions));
+    }
 
   function Tags(props) {
     return props.data.map((tag, index) => {
@@ -144,6 +165,18 @@ export default function Home({
       <View style={colorthemes.homeStyles.horizontal}>
         <Tags data={locations} setLitania={setLocations} />
       </View>
+      <Button
+        title="Tallenna hakuehdot"
+        onPress={() => {
+          testfunc(yesword);
+        }}
+      />
+      <Button
+        title="Käytä tallennettuja ehtoja"
+        onPress={() => {
+          getValueFor();
+        }}
+      />
     </ScrollView>
   );
 }
