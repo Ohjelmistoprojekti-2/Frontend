@@ -50,6 +50,13 @@ export default function Home({
     await SecureStore.setItemAsync("userOptions", JSON.stringify(userOptions));
   }
 
+  const clearAllOptions = () => {
+    setLocations([]);
+    setNotags([]);
+    setYestags([]);
+    setUserOptions([tyopaikat]);
+  };
+
   async function getValueFor() {
     let yestags = await SecureStore.getItemAsync("yestags");
     let notags = await SecureStore.getItemAsync("notags");
@@ -168,17 +175,23 @@ export default function Home({
       </View>
       <View style={colorthemes.homeStyles.buttonView}>
         <CustomButton
-          bgcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
+          bgcolor={Colorthemes.colorthemes.orangepurple.colors.dullnavtext}
           fontcolor="#fff"
           text="Save search options"
           onPress={testfunc}
         />
         <CustomButton
           bgcolor="transparent"
-          fontcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
+          fontcolor={Colorthemes.colorthemes.orangepurple.colors.dullnavtext}
           text="Use saved options"
           onPress={getValueFor}
           outlined
+        />
+        <CustomButton
+          bgcolor="transparent"
+          fontcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
+          text="Clear all options"
+          onPress={clearAllOptions}
         />
       </View>
     </ScrollView>
