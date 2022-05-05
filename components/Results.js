@@ -7,7 +7,7 @@ import {
   Linking,
   TouchableOpacity,
   ScrollView,
-  Button
+  Button,
 } from "react-native";
 import * as Colorthemes from "./styles";
 
@@ -52,7 +52,11 @@ export default function Results({
   const renderItem = ({ item }) => {
     let others = 0;
     return (
-      <View style={colorthemes.resultStyles.items}>
+      <View
+        style={colorthemes.resultStyles.items}
+        testID="job"
+        accessibilityLabel="job"
+      >
         <Text style={colorthemes.resultStyles.job}>{item._values.header}</Text>
         <Text style={colorthemes.resultStyles.coname}>
           {item._values.company}
@@ -65,46 +69,46 @@ export default function Results({
                 // jos työpaikan locationsit on arrayna
                 Array.isArray(item._values.location)
                   ? // mappaa object values ja filtteröi vaan ne jotka on valitussa arrayssa tai remote work
-                  Object.values(item._values.location)
-                    .filter((location, index) => {
-                      if (
-                        locations
-                          .join(", ")
-                          .toLowerCase()
-                          .split(", ")
-                          .indexOf(location.toLowerCase()) > -1 ||
-                        location.toLowerCase() == "remote work"
-                      ) {
-                        return location;
-                      } else {
-                        others++;
-                      }
-                    })
-                    .join(", ") // joinataan array pilkulla tulostusta varten
+                    Object.values(item._values.location)
+                      .filter((location, index) => {
+                        if (
+                          locations
+                            .join(", ")
+                            .toLowerCase()
+                            .split(", ")
+                            .indexOf(location.toLowerCase()) > -1 ||
+                          location.toLowerCase() == "remote work"
+                        ) {
+                          return location;
+                        } else {
+                          others++;
+                        }
+                      })
+                      .join(", ") // joinataan array pilkulla tulostusta varten
                   : // jos työpaikan locationsit on stringinä
-                  item._values.location
-                    .split(", ") // splittaa pilkusta ja filtteröi saatu array
-                    .filter((location, index) => {
-                      if (
-                        locations
-                          .join(", ")
-                          .toLowerCase()
-                          .split(", ")
-                          .indexOf(location.toLowerCase()) > -1 ||
-                        location.toLowerCase() == "remote work"
-                      ) {
-                        return location;
-                      } else {
-                        others++;
-                      }
-                    })
-                    .join(", ")
+                    item._values.location
+                      .split(", ") // splittaa pilkusta ja filtteröi saatu array
+                      .filter((location, index) => {
+                        if (
+                          locations
+                            .join(", ")
+                            .toLowerCase()
+                            .split(", ")
+                            .indexOf(location.toLowerCase()) > -1 ||
+                          location.toLowerCase() == "remote work"
+                        ) {
+                          return location;
+                        } else {
+                          others++;
+                        }
+                      })
+                      .join(", ")
               }
               {others == 1
                 ? " + " + others + " other"
                 : others > 0
-                  ? " + " + others + " others"
-                  : null}
+                ? " + " + others + " others"
+                : null}
             </Text>
           ) : (
             // jos valittuja locationseja ei ole olemassa, tulostetaan kaikki mitä työpaikalla on:
@@ -133,6 +137,7 @@ export default function Results({
   return (
     <ScrollView style={colorthemes.resultStyles.container}>
       <FlatList
+        accessibilityLabel="jobs"
         data={jobs}
         ItemSeparatorComponent={listSeparator}
         ListEmptyComponent={jobListEmpty}
@@ -143,4 +148,3 @@ export default function Results({
     </ScrollView>
   );
 }
-

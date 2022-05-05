@@ -46,6 +46,7 @@ export default function Radiobutton({ tyopaikat, styles, valintamuuttujat }) {
             }}
           >
             <Checkbox.Android
+              testID="checkbox"
               value={item}
               // EHTO, JOSSA TARKASTETAAN, ONKO KÄYTTÄJÄN VALINTA SAMA KUIN JOKU BUTTONIN ARVOISTA
               status={checked[index] === true ? "checked" : "unchecked"}

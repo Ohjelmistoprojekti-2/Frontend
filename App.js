@@ -8,6 +8,7 @@ import { Image, View, Text } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import * as Colorthemes from "./components/styles";
 import ReactLoading from "react-loading";
+import { coJobs, yesTags, noTags, jobLocations } from './components/filterFunctions';
 
 // tämä liittyy navigointiin
 const Tab = createBottomTabNavigator();
@@ -106,67 +107,18 @@ export default function App() {
     }
   };
 
-  // palauttaa valitut yritykset checkboxeista, käytetään useEffectissä
-  const coJobs = (job) => userOptions.includes(job._values.company);
-
-  // palauttaa työpaikat, jotka sisältävät hakusanat/keywords, käytetään useEffectissä
-  const yesTags = (job) => {
-    if (yestags.length > 0) {
-      return yestags.some((tag) => {
-        return job._values.text.toLowerCase().includes(tag.toLowerCase());
-      });
-    } else {
-      return job;
-    }
-  };
-
-  // palauttaa työpaikat, jotka EIVÄT sisällä lisättyä keywordia, käytetään useEffectissä
-  const noTags = (job) => {
-    if (notags.length > 0) {
-      return notags.some((tag) => {
-        return (
-          job._values.text.toLowerCase().includes(tag.toLowerCase()) === false
-        );
-      });
-    } else {
-      return job;
-    }
-  };
-
-  // palauttaa työpaikat, jotka sisältävät syötetyt paikkakunnat, käytetään useEffectissä
-  const jobLocations = (job) => {
-    if (locations.length > 0) {
-      return locations.some((tag) => {
-        // jos location on array (esim. Visma)
-        if (Array.isArray(job._values.location) === true) {
-          return job._values.location.some(
-            (loc) => loc.toLowerCase() === tag.toLowerCase()
-          );
-        } else {
-          // jos location on string (esim. Reaktor)
-          return job._values.location.toLowerCase().includes(tag.toLowerCase());
-        }
-      });
-    } else {
-      return job;
-    }
-  };
-
   // työpaikkojen filtteröinti:
   useEffect(() => {
-    const filtered = originaljobs
-      // yritykset
-      .filter(coJobs)
-      // yestags
-      .filter(yesTags)
-      // notags
-      .filter(noTags)
-      // locations
-      .filter(jobLocations);
-
-    setJobs(filtered);
+    const filtered1 = coJobs(originaljobs, userOptions)
+    setJobs(filtered1)
+    const filtered2 = yesTags(filtered1, yestags)
+    setJobs(filtered2)
+    const filtered3 = noTags(filtered2, notags)
+    setJobs(filtered3)
+    const filtered4 = jobLocations(filtered3, locations);
+    setJobs(filtered4);
     // filtteröityjen lkm consoleen, saa poistaa
-    console.log("Filtered: " + filtered.length + "kpl");
+    console.log("Filtered: " + filtered4.length + "kpl");
   }, [userOptions, yestags, notags, locations]);
 
   useEffect(() => {
@@ -260,7 +212,10 @@ export default function App() {
                 );
               } else {
                 return (
-                  <View style={{ alignItems: "center", margin: 20 }}>
+                  <View
+                    style={{ alignItems: "center", margin: 20 }}
+                    testID="loading"
+                  >
                     <ReactLoading
                       type="spinningBubbles"
                       color={colorscheme.secondary}

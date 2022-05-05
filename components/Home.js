@@ -1,6 +1,13 @@
 // näkymä, jossa käyttäjä tekee valinnat
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -14,7 +21,6 @@ export default function Home({
   muuttujat,
   tyopaikat,
 }) {
-
   const colorthemes = Colorthemes.colorthemes;
 
   // funktiot ja muuttujat app.js:stä propsina
@@ -59,7 +65,9 @@ export default function Home({
 
   return (
     <ScrollView style={colorthemes.homeStyles.form}>
-      <Text style={colorthemes.homeStyles.paragraph}>Show jobs from selected companies:</Text>
+      <Text style={colorthemes.homeStyles.paragraph}>
+        Show jobs from selected companies:
+      </Text>
       <Radiobutton
         tyopaikat={tyopaikkaarray}
         styles={colorthemes.homeStyles}
@@ -79,6 +87,7 @@ export default function Home({
           onSubmitEditing={() => lisaatagi(yesword, setYesword, setYestags)}
         ></TextInput>
         <Ionicons
+          testID="yestag-button"
           name="add-circle"
           size={40}
           color={theme.colors.card}
@@ -88,7 +97,9 @@ export default function Home({
       <View style={colorthemes.homeStyles.horizontal}>
         <Tags data={yestags} setLitania={setYestags} />
       </View>
-      <Text style={colorthemes.homeStyles.paragraph}>Exclude jobs that contain keywords:</Text>
+      <Text style={colorthemes.homeStyles.paragraph}>
+        Exclude jobs that contain keywords:
+      </Text>
       <View style={colorthemes.homeStyles.horizontalform}>
         <TextInput
           mode="outlined"
@@ -110,7 +121,9 @@ export default function Home({
         <Tags data={notags} setLitania={setNotags} />
       </View>
 
-      <Text style={colorthemes.homeStyles.paragraph}>Show only jobs from location(s):</Text>
+      <Text style={colorthemes.homeStyles.paragraph}>
+        Show only jobs from location(s):
+      </Text>
       <View style={colorthemes.homeStyles.horizontalform}>
         <TextInput
           mode="outlined"
