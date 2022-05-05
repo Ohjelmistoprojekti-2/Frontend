@@ -12,7 +12,8 @@ import Radiobutton from "./Radiobutton";
 import { TextInput } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Colorthemes from "./styles";
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
+import CustomButton from "./CustomButton";
 
 export default function Home({
   route,
@@ -34,7 +35,7 @@ export default function Home({
   const [noword, setNoword] = muuttujat.nomuuttujat; // ei-tagin muistipaikka
   const [location, setLocation] = muuttujat.locationmuuttujat; //sijainnin muistipaikka
 
-  const allTags = []
+  const allTags = [];
 
   const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
   const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
@@ -42,11 +43,11 @@ export default function Home({
 
   const [userOptions, setUserOptions] = muuttujat.valintamuuttujat;
 
-  async function testfunc(){
-      await SecureStore.setItemAsync("yestags", JSON.stringify(yestags));
-      await SecureStore.setItemAsync("notags", JSON.stringify(notags));
-      await SecureStore.setItemAsync("locations", JSON.stringify(locations));
-      await SecureStore.setItemAsync("userOptions", JSON.stringify(userOptions));
+  async function testfunc() {
+    await SecureStore.setItemAsync("yestags", JSON.stringify(yestags));
+    await SecureStore.setItemAsync("notags", JSON.stringify(notags));
+    await SecureStore.setItemAsync("locations", JSON.stringify(locations));
+    await SecureStore.setItemAsync("userOptions", JSON.stringify(userOptions));
   }
 
   async function getValueFor() {
@@ -54,11 +55,11 @@ export default function Home({
     let notags = await SecureStore.getItemAsync("notags");
     let locations = await SecureStore.getItemAsync("locations");
     let userOptions = await SecureStore.getItemAsync("userOptions");
-      setYestags(JSON.parse(yestags));
-      setNotags(JSON.parse(notags));
-      setLocations(JSON.parse(locations));
-      setUserOptions(JSON.parse(userOptions));
-    }
+    setYestags(JSON.parse(yestags));
+    setNotags(JSON.parse(notags));
+    setLocations(JSON.parse(locations));
+    setUserOptions(JSON.parse(userOptions));
+  }
 
   function Tags(props) {
     return props.data.map((tag, index) => {
@@ -165,18 +166,21 @@ export default function Home({
       <View style={colorthemes.homeStyles.horizontal}>
         <Tags data={locations} setLitania={setLocations} />
       </View>
-      <Button
-        title="Tallenna hakuehdot"
-        onPress={() => {
-          testfunc(yesword);
-        }}
-      />
-      <Button
-        title="Käytä tallennettuja ehtoja"
-        onPress={() => {
-          getValueFor();
-        }}
-      />
+      <View style={colorthemes.homeStyles.buttonView}>
+        <CustomButton
+          bgcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
+          fontcolor="#fff"
+          text="Save search options"
+          onPress={testfunc}
+        />
+        <CustomButton
+          bgcolor="transparent"
+          fontcolor={Colorthemes.colorthemes.orangepurple.colors.accent}
+          text="Use saved options"
+          onPress={getValueFor}
+          outlined
+        />
+      </View>
     </ScrollView>
   );
 }
