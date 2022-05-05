@@ -49,7 +49,7 @@ export default function App() {
   };
 
   const fetchJobs = () => {
-    fetch("https://tyonhakuappi.herokuapp.com/api/tyopaikat", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}`, {
       method: "GET",
       headers: {
         "API-KEY": `${process.env.REACT_APP_BACKEND_API_KEY}`,
@@ -60,7 +60,7 @@ export default function App() {
         setJobs(data);
         setOriginaljobs(data);
         setLoading(false);
-        console.log(data);
+        console.log(`${process.env.REACT_APP_BACKEND_URL}`);
       })
       .catch((err) => {
         console.log(err);
