@@ -7,11 +7,10 @@ import {
   Linking,
   TouchableOpacity,
   ScrollView,
-  Button
+  Button,
 } from "react-native";
 import * as Colorthemes from "./styles";
-import { ListItem, Icon, Avatar } from 'react-native-elements';
-
+import { ListItem, Icon, Avatar } from "react-native-elements";
 
 export default function Results({
   route,
@@ -54,23 +53,26 @@ export default function Results({
   const renderItem = ({ item }) => {
     let others = 0;
     return (
-      <ListItem bottomDivider>
-        <ListItem.Content style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          // backgroundColor: '#f2f2f2'
-        }}>
-          <View style={{ flexDirection: 'row' }}>
+      <ListItem bottomDivider testID="job">
+        <ListItem.Content
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            // backgroundColor: '#f2f2f2'
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
             <Avatar
               rounded
               size="large"
               source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+                uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
               }}
             />
             <View style={{ marginLeft: 30 }}>
-              <ListItem.Title style={colorthemes.resultStyles.job}>{item._values.header}</ListItem.Title>
+              <ListItem.Title style={colorthemes.resultStyles.job}>
+                {item._values.header}
+              </ListItem.Title>
               <ListItem.Subtitle style={colorthemes.resultStyles.coname}>
                 {item._values.company}
               </ListItem.Subtitle>
@@ -82,46 +84,46 @@ export default function Results({
                       // jos työpaikan locationsit on arrayna
                       Array.isArray(item._values.location)
                         ? // mappaa object values ja filtteröi vaan ne jotka on valitussa arrayssa tai remote work
-                        Object.values(item._values.location)
-                          .filter((location, index) => {
-                            if (
-                              locations
-                                .join(", ")
-                                .toLowerCase()
-                                .split(", ")
-                                .indexOf(location.toLowerCase()) > -1 ||
-                              location.toLowerCase() == "remote work"
-                            ) {
-                              return location;
-                            } else {
-                              others++;
-                            }
-                          })
-                          .join(", ") // joinataan array pilkulla tulostusta varten
+                          Object.values(item._values.location)
+                            .filter((location, index) => {
+                              if (
+                                locations
+                                  .join(", ")
+                                  .toLowerCase()
+                                  .split(", ")
+                                  .indexOf(location.toLowerCase()) > -1 ||
+                                location.toLowerCase() == "remote work"
+                              ) {
+                                return location;
+                              } else {
+                                others++;
+                              }
+                            })
+                            .join(", ") // joinataan array pilkulla tulostusta varten
                         : // jos työpaikan locationsit on stringinä
-                        item._values.location
-                          .split(", ") // splittaa pilkusta ja filtteröi saatu array
-                          .filter((location, index) => {
-                            if (
-                              locations
-                                .join(", ")
-                                .toLowerCase()
-                                .split(", ")
-                                .indexOf(location.toLowerCase()) > -1 ||
-                              location.toLowerCase() == "remote work"
-                            ) {
-                              return location;
-                            } else {
-                              others++;
-                            }
-                          })
-                          .join(", ")
+                          item._values.location
+                            .split(", ") // splittaa pilkusta ja filtteröi saatu array
+                            .filter((location, index) => {
+                              if (
+                                locations
+                                  .join(", ")
+                                  .toLowerCase()
+                                  .split(", ")
+                                  .indexOf(location.toLowerCase()) > -1 ||
+                                location.toLowerCase() == "remote work"
+                              ) {
+                                return location;
+                              } else {
+                                others++;
+                              }
+                            })
+                            .join(", ")
                     }
                     {others == 1
                       ? " + " + others + " other"
                       : others > 0
-                        ? " + " + others + " others"
-                        : null}
+                      ? " + " + others + " others"
+                      : null}
                   </ListItem.Subtitle>
                 ) : (
                   // jos valittuja locationseja ei ole olemassa, tulostetaan kaikki mitä työpaikalla on:
@@ -138,8 +140,14 @@ export default function Results({
             </View>
           </View>
           <View>
-            <View style={{ justifyContent: 'flex-end' }}>
-              <Icon type="material" color="#f9c784" name="info" size={50} onPress={() => Linking.openURL(`${item._values.url}`)} />
+            <View style={{ justifyContent: "flex-end" }}>
+              <Icon
+                type="material"
+                color="#f9c784"
+                name="info"
+                size={50}
+                onPress={() => Linking.openURL(`${item._values.url}`)}
+              />
               <TouchableOpacity
                 onPress={() => Linking.openURL(`${item._values.url}`)}
               >
