@@ -1,33 +1,22 @@
 // listanäkymä hakutuloksista
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Text,
   View,
   FlatList,
   Linking,
   TouchableOpacity,
-  ScrollView,
-  Button,
+  Pressable,
 } from "react-native";
 import * as Colorthemes from "./styles";
 import { ListItem, Icon, Avatar } from "react-native-elements";
 
-export default function Results({
-  route,
-  navigation,
-  theme,
-  fetchJobs,
-  funktiot,
-  muuttujat,
-}) {
+export default function Results({ muuttujat }) {
   const colorthemes = Colorthemes.colorthemes;
 
   // muuttujat app.js:stä
   const [jobs, setJobs] = muuttujat.jobsmuuttujat; // filtteröity työpaikka-array
-  const [yestags, setYestags] = muuttujat.yesarray; // kaikki kyllä-tagit
-  const [notags, setNotags] = muuttujat.noarray; // kaikki ei-tagit
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
-  const [userOptions, setUserOptions] = muuttujat.valintamuuttujat; // firman nimet
 
   const companyAvatars = {
     Reaktor: require("../assets/reaktor.png"),
@@ -52,10 +41,6 @@ export default function Results({
     );
   };
 
-  // header propsi
-  const jobListHeader = () => {
-    return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
-  };
   const renderItem = ({ item }) => {
     let others = 0;
     return (
@@ -154,14 +139,30 @@ export default function Results({
             </View>
           </View>
 
-          <View style={{ justifyContent: "center", flexGrow: 0 }}>
-            <Icon
-              type="material"
-              color="#f9c784"
-              name="info"
-              size={50}
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: 0,
+            }}
+          >
+            <Pressable
               onPress={() => Linking.openURL(`${item._values.url}`)}
-            />
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                backgroundColor: colorthemes.orangepurple.colors.secondary,
+                justifyContent: "center",
+              }}
+            >
+              <Icon
+                type="octicon"
+                color="#fff"
+                name="link-external"
+                size={25}
+              />
+            </Pressable>
             <TouchableOpacity
               onPress={() => Linking.openURL(`${item._values.url}`)}
               style={{ alignItems: "center" }}
@@ -175,15 +176,12 @@ export default function Results({
   };
 
   return (
-    <ScrollView style={colorthemes.resultStyles.container}>
-      <FlatList
-        data={jobs}
-        // ItemSeparatorComponent={listSeparator}
-        ListEmptyComponent={jobListEmpty}
-        ListHeaderComponent={jobListHeader}
-        keyExtractor={(item, index) => index}
-        renderItem={renderItem}
-      />
-    </ScrollView>
+    <FlatList
+      data={jobs}
+      // ItemSeparatorComponent={listSeparator}
+      ListEmptyComponent={jobListEmpty}
+      keyExtractor={(item, index) => index}
+      renderItem={renderItem}
+    />
   );
 }
