@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet } from "react-native";
 // TÄNNE VOI TARVITTAESSA LUODA TYYLEJÄ
 
@@ -60,6 +61,19 @@ const homeStyles = StyleSheet.create({
     marginHorizontal: 8,
   },
   icon: { marginHorizontal: 5 },
+  buttonContainer: {
+    padding: 15,
+    marginVertical: 5,
+    alignItems: "center",
+    borderRadius: 5,
+    width: "100%",
+  },
+  buttonText: {
+    fontWeight: "bold",
+  },
+  buttonView: {
+    marginVertical: 10,
+  },
 });
 
 // kaikki results.js muotoilut
@@ -91,21 +105,9 @@ const resultStyles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
   },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "#4e598c",
-  },
   buttonText: {
-    fontSize: 16,
     fontWeight: "bold",
-    lineHeight: 21,
-    color: "#ff8c42",
-    textDecorationLine: "underline",
+    color: orangepurple.colors.accent,
   },
 });
 
