@@ -29,6 +29,13 @@ export default function Results({
   const [locations, setLocations] = muuttujat.locationsarray; // halutut sijainnit
   const [userOptions, setUserOptions] = muuttujat.valintamuuttujat; // firman nimet
 
+  const companyAvatars = {
+    Reaktor: require("../assets/reaktor.png"),
+    "Siili Solutions": require("../assets/siili.png"),
+    Visma: require("../assets/visma.png"),
+    Futurice: require("../assets/futurice.png"),
+  };
+
   // console.log(jobs);
 
   // listSeparator komponentti eriyttää esitetyt duunipaikat näkymässä
@@ -49,7 +56,6 @@ export default function Results({
   const jobListHeader = () => {
     return <Text style={colorthemes.resultStyles.header}>Your results</Text>;
   };
-
   const renderItem = ({ item }) => {
     let others = 0;
     return (
@@ -57,19 +63,27 @@ export default function Results({
         <ListItem.Content
           style={{
             flexDirection: "row",
+            display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             // backgroundColor: '#f2f2f2'
           }}
         >
-          <View style={{ flexDirection: "row" }}>
-            <Avatar
-              rounded
-              size="large"
-              source={{
-                uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-              }}
-            />
-            <View style={{ marginLeft: 30 }}>
+          <View style={{ flexDirection: "row", maxWidth: "80%" }}>
+            <View style={{ justifyContent: "center" }}>
+              <Avatar
+                rounded
+                size="medium"
+                source={companyAvatars[item._values.company]}
+                imageProps={{
+                  resizeMode: "contain",
+                  borderWidth: 1,
+                  borderColor: "#eee",
+                }}
+                avatarStyle={{ flex: 1 }}
+              />
+            </View>
+            <View style={{ marginLeft: 10, maxWidth: "80%" }}>
               <ListItem.Title style={colorthemes.resultStyles.job}>
                 {item._values.header}
               </ListItem.Title>
@@ -139,21 +153,21 @@ export default function Results({
               }
             </View>
           </View>
-          <View>
-            <View style={{ justifyContent: "flex-end" }}>
-              <Icon
-                type="material"
-                color="#f9c784"
-                name="info"
-                size={50}
-                onPress={() => Linking.openURL(`${item._values.url}`)}
-              />
-              <TouchableOpacity
-                onPress={() => Linking.openURL(`${item._values.url}`)}
-              >
-                <Text>More info</Text>
-              </TouchableOpacity>
-            </View>
+
+          <View style={{ justifyContent: "center", flexGrow: 0 }}>
+            <Icon
+              type="material"
+              color="#f9c784"
+              name="info"
+              size={50}
+              onPress={() => Linking.openURL(`${item._values.url}`)}
+            />
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`${item._values.url}`)}
+              style={{ alignItems: "center" }}
+            >
+              <Text>More info</Text>
+            </TouchableOpacity>
           </View>
         </ListItem.Content>
       </ListItem>
