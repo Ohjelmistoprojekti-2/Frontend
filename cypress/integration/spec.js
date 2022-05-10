@@ -21,7 +21,7 @@ it("loads jobs from backend api", () => {
     .then((jobs) => {
       cy.log("**navigating to job listing page**");
       cy.contains("Job results").click();
-      cy.wait(30000); // odotetaan 30 sek koska github actions workflow on niin hidas että failaa muuten
+      cy.wait(60 * 1000); // odotetaan 1 min koska github actions workflow on niin hidas että failaa muuten
       cy.get("[data-testid=job]").should("have.length", jobs.length);
     });
 });
