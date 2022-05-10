@@ -44,7 +44,7 @@ export default function Results({ muuttujat }) {
   const renderItem = ({ item }) => {
     let others = 0;
     return (
-      <ListItem bottomDivider testID="job">
+      <ListItem bottomDivider>
         <ListItem.Content
           style={{
             flexDirection: "row",
@@ -53,6 +53,7 @@ export default function Results({ muuttujat }) {
             alignItems: "center",
             // backgroundColor: '#f2f2f2'
           }}
+          testID="job"
         >
           <View style={{ flexDirection: "row", maxWidth: "80%" }}>
             <View style={{ justifyContent: "center" }}>
