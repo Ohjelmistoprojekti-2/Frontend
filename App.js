@@ -84,10 +84,6 @@ export default function App() {
           alignItems: "center",
         }}
       >
-        <Image
-          style={{ height: 30, width: 40 }}
-          source={require("./assets/duuniapp.svg")}
-        />
         <Text
           style={{ color: colorscheme.lighttext, fontSize: 25, marginLeft: 10 }}
         >
