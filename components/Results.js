@@ -85,7 +85,7 @@ export default function Results({
             </View>
             <View style={{ marginLeft: 10, maxWidth: "80%" }}>
               <ListItem.Title style={colorthemes.resultStyles.job}>
-                {item._values.header}
+                {item._values.header.replace("→", "")}
               </ListItem.Title>
               <ListItem.Subtitle style={colorthemes.resultStyles.coname}>
                 {item._values.company}
