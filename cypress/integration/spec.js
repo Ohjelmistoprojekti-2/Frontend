@@ -108,7 +108,8 @@ it("loads jobs from backend api", () => {
     .then((jobs) => {
       cy.log("**navigating to job listing page**");
       cy.contains("Job results").click();
-      // listakomponentti on niin raskas ettei voi verrata koko pituuteen
+      // listakomponentti renderöi vain osan kerrallaan joten ei voi verrata koko pituuteen
+      cy.get("[data-testid=list]").scrollTo("bottom");
       cy.get("[data-testid=job]").should("have.length.gt", 5);
     });
 });

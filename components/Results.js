@@ -183,6 +183,7 @@ export default function Results({ muuttujat }) {
       ListEmptyComponent={jobListEmpty}
       keyExtractor={(item, index) => index}
       renderItem={renderItem}
+      testID="list"
     />
   );
 }
